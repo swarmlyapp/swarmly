@@ -9,7 +9,7 @@
           <%= link_to image_tag("noprofile.png", class: 'avatar circle'), main_app.user_path(notification.actor) %>
       <% end %>
       <div class="notify-author">
-        <span>Comunidad</span>
+        <span>Seguidores</span>
         <span class="regular"><%= link_to notification.actor.username, main_app.user_path(notification.actor) %>
         te ha empezado a seguir
         </span>
@@ -24,7 +24,7 @@
           <i class="ion-android-person-add"></i>
         </div>
         <div class="notify-author">
-          <span>Comunidad</span>
+          <span>Seguidores</span>
           <span class="regular">Un miembro de la comunidad te empezó a seguir</span>
           <span class="createat"><%= l notification.created_at, format: :short %></span>
         </div>
