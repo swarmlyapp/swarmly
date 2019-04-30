@@ -1,0 +1,28 @@
+        <div class="user-card animated fadein delay-1">
+            <div class="user-header">
+              <% if user.userspic.present? %>
+                  <%= link_to image_tag(user.userspic.url(:picture_display), class: 'avatar'), user_path(user) %>
+                <% elsif user.remote_avatar.present? %>
+                  <%= link_to image_tag(user.remote_avatar, class: 'avatar'), user_path(user) %>
+                <% else %>
+                  <%= link_to image_tag("noprofile.png", class: 'avatar'), user_path(user) %>
+              <% end %>
+              <div class="user-info">
+                <span class="small"><%= link_to user.username, user %>
+                <% if current_user.admin? && !current_user?(user) %>
+                  <%= link_to destroy_user_path(user), method: :delete, data:{confirm: "¿Seguro que quieres eliminar la cuenta, se borraran todos los datos?"} do %>
+                    <i class="ion-android-delete card-delete"></i>  
+                  <% end %>
+                <% end %>
+                <% if user.admin? %>
+                    <i class="ion-checkmark-circled"></i>  
+                <% end %>
+                </span>
+                <% if user.about? %>
+                  <span class="regular"><%= user.about %></span>
+                  <% else %>
+                  <span class="regular">I love Swarmly</span>
+                <% end %>
+              </div>
+            </div>
+        </div>

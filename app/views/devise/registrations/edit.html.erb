@@ -1,0 +1,40 @@
+            <% provide(:title, "Ajustes de cuenta #{@user.username}") %>
+            <div class="page fullscreen accent-color">
+              <div class="container">
+                <div class="row">
+                  <div class="col s12 m6 offset-m3">
+                    <div class="login-form signup-top z-depth-1 regular">
+                      <h1>Datos de cuenta</h1>
+                        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+                            <%= devise_error_messages! %>
+                            <div class="input-field">
+                              <i class="ion-android-mail prefix"></i>
+                              <%= f.email_field :email, class: 'form-control', placeholder: "Correo" %>
+                            </div>
+                            
+                            <div class="input-field">
+                              <i class="ion-android-lock prefix"></i>
+                              <%= f.password_field :password, class: 'form-control', placeholder: "Contraseña" %>
+                            </div>
+
+                            <div class="input-field">
+                              <i class="ion-android-lock prefix"></i>
+                              <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "Confirmación" %>
+                            </div>
+                            
+                            <div class="input-field">
+                              <i class="ion-android-lock prefix"></i>
+                              <%= f.password_field :current_password, class: 'form-control', placeholder: "Contraseña actual" %>
+                            </div>
+
+                            <%= f.submit "Actualizar datos", class: "btn-waves-effect waves-light btn-large accent-color block m-b-20 animated bouncein delay-2" %>
+                            <% end %>
+
+                            <%= link_to registration_path(resource_name), method: :delete, data:{confirm: "¿Seguro que quieres eliminar tu cuenta, se borraran todos tus datos?"} do %>
+                              <span>Eliminar mi cuenta Swarmly</span>  
+                        <% end %>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+            </div> 

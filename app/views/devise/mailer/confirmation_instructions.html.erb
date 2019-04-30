@@ -1,0 +1,5 @@
+<p>Bienvenido a Swarmly <%= @email %>!</p>
+
+<p>Puedes confimar tu cuenta Swarmly con el enlace de abajo:</p>
+
+<p><%= link_to 'Confirmar mi cuenta', confirmation_url(@resource, confirmation_token: @token) %></p>

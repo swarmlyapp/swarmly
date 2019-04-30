@@ -1,0 +1,48 @@
+      <% provide(:title, "Comentarios de grupo #{@group.name}") %>
+      <div id="toolbar" class="primary-color z-depth-1">
+      <div class="logo-container">
+          <%= link_to root_path do %>
+            <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
+          <% end %>
+      </div>
+        <% if logged_in? %>
+        <div class="toolbar-item">
+        <%= link_to group_clips_path(@group) do %>
+          <i class="ion-android-folder secondary-text"></i>
+        <% end %>
+        <% if current_user %>
+          <%= render partial: "favorites/favorite", locals: {group: @group} %>
+        <% end %>
+        </div> 
+        <% else %> 
+          <div class="toolbar-item">
+            <%= link_to new_user_session_path do %>
+                <i class="ion-android-open"></i>
+            <% end %>
+        </div> 
+        <% end %>        
+      </div> 
+    <% if logged_in? %>
+      <div class="page-chat">
+        <%= form_for([@group, @comment], remote: true, :html => {class: "regular", role: "form"}) do |f| %>
+          <div class= "write-message z-depth-1">
+            <div class="write-field">
+              <%= f.text_field :description, placeholder: "Enviar mensaje..." %>
+            </div>
+            <%= button_tag(type: "submit", class: "send-button secondary-color") do %>
+              <i class="ion-android-send send-message accent-text"></i>
+            <% end %>
+        </div>
+    <% end %>
+    <div class="chat p-20" style="margin-bottom:30px">
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <div id="messages">
+              <%= render(partial: "comments/comments", object: @comments) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>

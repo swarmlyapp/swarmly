@@ -1,0 +1,28 @@
+                <div class="grid-item"> 
+                  <div class="card">
+                    <div class="card-image">
+                      <%= link_to image_tag(clip.clipspic.url), clip_path(clip) %>
+                    </div>
+                    <div class="card-content">
+                      <h4><%= link_to clip.caption, clip_path(clip) %></h4>
+                    </div>
+                    <div class="card-author">
+                      <div class="media-top-object middle">
+                        <% if clip.user.userspic.present? %>
+                            <%= link_to image_tag(clip.user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(clip.user.id) %>
+                          <% elsif clip.user.remote_avatar.present? %>
+                            <%= link_to image_tag(clip.user.remote_avatar, class: 'media-left avatar small'), user_path(clip.user.id) %>
+                          <% else %>
+                            <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(clip.user.id) %>
+                        <% end %>
+                        <div class="media-body">
+                          <span class="small"><%= link_to clip.user.username.capitalize, user_path(clip.user.id) %>
+                          <% if clip.user.admin? %>
+                            <i class="ion-checkmark-circled"></i>  
+                          <% end %>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>

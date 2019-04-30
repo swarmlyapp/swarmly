@@ -1,0 +1,36 @@
+            <%= render "shared/error_messages", object: @group %>
+            <div class="page animated fadeinup">
+              <div class="container">
+                <div class="row">
+                  <div class="col s12 m6 offset-m3">
+                    <div class="card form-inputs top-20 p-20">
+                      <%= form_for(@group) do |f| %>
+                        <div class="input-field animated fadeinright">
+                          <%= f.text_field :name, class: "validate", placeholder: "Nombre del grupo" %>
+                        </div>
+                        
+                      <div class="file-field input-field">
+                        <div class="btn file secondary-color">
+                          <span>Foto</span>
+                          <%= f.file_field :groupspic, accept: 'image/jpeg,image/gif,image/png' %>
+                        </div>
+                        <div class="file-path-wrapper">
+                          <input class="file-path validate" type="text">
+                        </div>
+                      </div>
+
+                      <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
+                        <%= cb.check_box(class: "filled-in") %> 
+                        <%= cb.label %> 
+                        <br>
+                      <% end %>
+                      <br>
+                      <%= f.submit(@group.new_record? ? "Crear grupo" : "Editar grupo",
+                                                    class: "btn-waves-effect waves-light btn-large accent-color block animated bouncein delay-6", data: { disable_with: "Creando grupo..." }) %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
+

@@ -1,0 +1,7 @@
+<% if @vote.valid? %>
+  $('#votes-note-' + <%= @note.id %>).html("<%= @note.points %> rank");
+  $('#note-upvote-' + <%= @note.id %>).html("<%= @note.up_votes %>");
+  $('#note-downvote-' + <%= @note.id %>).html("<%= @note.down_votes %>");
+<% else %>
+  $('.flash').append("Can't downvote more than once")
+<% end %>

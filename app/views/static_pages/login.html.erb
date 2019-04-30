@@ -1,0 +1,13 @@
+    <% provide(:title, 'Autentifica tu cuenta') %>
+        <%= image_tag "one.svg" %>
+        <div class="section"> 
+            <div class="facebook-login">
+                <%= link_to "LOGIN WITH FACEBOOK", user_facebook_omniauth_authorize_path %>
+            </div> 
+            <div class="google-login">
+                <%= link_to "LOGIN WITH GOOGLE", user_google_oauth2_omniauth_authorize_path %>
+            </div>
+            <div class="swarmly-login">
+                <%= link_to "SWARMLY ACCOUNT", new_user_session_path %>
+            </div>
+        </div>

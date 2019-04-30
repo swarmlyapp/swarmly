@@ -1,0 +1,101 @@
+    <% provide(:title, "Crear nueva nota") %>
+    <%= render "shared/error_messages", object: @note %>
+    <div class="page">
+      <div id="toolbar" class="primary-color z-depth-1">
+      <div class="logo-container">
+          <%= link_to root_path do %>
+            <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
+          <% end %>
+      </div>
+        <% if logged_in? %>
+        <div class="toolbar-item">
+            <% if current_user.userspic.present? %>
+                    <%= link_to image_tag(current_user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(current_user) %>
+                <% elsif current_user.remote_avatar.present? %>
+                    <%= link_to image_tag(current_user.remote_avatar, class: 'media-left avatar small'), user_path(current_user) %>
+                <% else %>
+                    <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(current_user) %>
+            <% end %>
+        </div> 
+        <% else %> 
+          <div class="toolbar-item">
+            <%= link_to new_user_session_path do %>
+                <i class="ion-android-open"></i>
+            <% end %>
+        </div> 
+        <% end %>        
+      </div> 
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <div class="card form-inputs top-20 p-20">
+                <%= form_for(@note, url: group_notes_path(@group)) do |f| %>
+                    <div class="input-field">
+                        <i class="ion-android-create prefix"></i>
+                        <%= f.text_field :name, class: "validate", placeholder: "Título de la nota" %>
+                    </div>
+
+                    <%= f.text_area :body, id: 'trumbowyg', placeholder: "Escribe una nota..." %>
+
+                    <% if current_user.admin? %>
+                      <div class="file-field input-field">
+                      <div class="btn file secondary-color">
+                          <span>Foto opcional</span>
+                          <%= f.file_field :notespic, accept: 'image/jpeg,image/gif,image/png' %>
+                      </div>
+                      <div class="file-path-wrapper">
+                          <input class="file-path validate" type="text">
+                      </div>
+                      </div>
+                    <% end %>
+                    
+                
+                    <div class="input-field">
+                        <i class="ion-pound prefix"></i>
+                        <%= f.text_field :tag_list, placeholder: "Ej: programación, algebra, calculo", class: "form-control", maxlength: "230" %>
+                    </div>
+
+                    <%= f.hidden_field :user_id, value: current_user.id %>
+                    <%= f.hidden_field :group_id, value: @group.id %>
+                        
+                    <%= f.submit "Crear nota", class: "btn-waves-effect file waves-light btn-large accent-color block animated bouncein delay-6", data: { disable_with: "Creando nota..." } %>            
+                <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <script> 
+    $(document).ready(function() {
+        $('#trumbowyg')
+        .trumbowyg({
+            svgPath: '<%= image_path("icons.svg")%>',
+            btns: [
+                ['viewHTML'],
+                ['noembed'],
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['superscript', 'subscript'],
+                ['link'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+                ['fullscreen']
+            ]
+        });           
+    });
+    </script> 
+    <nav class="no-labels-nav">
+    <%= link_to group_clips_path(@group), :class => "no-labels-nav__action" do %>
+      <i class="ion-android-image no-labels-nav__icon"></i>
+    <% end %> 
+
+    <%= link_to group_notes_path(@group), :class => "no-labels-nav__action--active" do %>
+      <i class="ion-android-document no-labels-nav__icon"></i>
+    <% end %>
+
+    <%= link_to group_zones_path(@group), :class => "no-labels-nav__action" do %>
+      <i class="ion-android-map no-labels-nav__icon"></i>
+    <% end %>
+    </nav>

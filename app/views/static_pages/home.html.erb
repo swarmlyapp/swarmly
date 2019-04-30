@@ -1,0 +1,167 @@
+<% provide(:title, 'Inicio') %>
+<% if logged_in? %>
+    <%= render 'layouts/navigation' %>  
+    <nav class="bottom-nav">
+      <%= link_to root_path, :class => "bottom-nav__action bottom-nav__action--active" do %>
+        <i class="ion-home bottom-icon"></i>
+        <span class="bottom-nav__label">Inicio</span>
+      <% end %> 
+
+      <%= link_to categories_path, :class => "bottom-nav__action bottom-nav__action" do %>
+        <i class="ion-android-apps bottom-icon"></i>
+        <span class="bottom-nav__label">Categorías</span>
+      <% end %>
+
+      <%= link_to groups_path, :class => "bottom-nav__action bottom-nav__action" do %>
+        <i class="ion-android-compass bottom-icon"></i>
+        <span class="bottom-nav__label">Explorar</span>
+      <% end %>
+    </nav>
+    <%= render 'shared/feed' %>
+<% else %>
+<%= render 'layouts/navigation' %>
+      <div class="animated fadein regular" style="padding-top: 50px">
+        <div class="section bg-5 center" style="padding: 75px 20px">
+            <div class="container">
+              <div class="row">
+                <div class="col s12 m6 offset-m3">
+                      <img src="https://res.cloudinary.com/swarmly/image/upload/v1542178341/icon-128x128.svg" style="height: 100px">
+                      <h2 class="heading white-text">Swarmly es la manera en la que compartes y aprendes de forma gratuita y flexible.</h2>
+                      <p class="white-text" style="margin-top: 15px">Swarmly es la plataforma de aprendizaje colaborativo que te permite comunicarte, compartir y aprender en un solo lugar.</p>
+                      <%= link_to 'Regístrate o Ingresa', new_user_session_path, {:style=>'text-transform:none;font-size:large;', :class => "waves-effect waves-light accent-color top-20 btn-large"} %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Featured -->
+          <div class="section featured left-align accent-color">
+            <div class="container">
+              <div class="row">
+                <div class="col s12 m8 offset-m2">
+                  <p class="white-text">Este es un grupo de Swarmly. En el puedes comunicarte en tiempo real con tus compañeros de grupo, compartir clips, notas y aprender junto a otras personas que comparten tus mismas pasiones.</p>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col s12">
+                  <img src="https://res.cloudinary.com/swarmly/image/upload/v1542414231/mockupgroup.png" alt="">
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col s12 m8 offset-m2">
+                  <p class="white-text">Uneté a tantos grupos como quieras, sin ningún limite. Encuentra grupos publicos por categorías de esta forma puedes encontrar un tema que te interesa y aprender de forma gratuita.
+                  <br>
+                  Además en cada grupo verás un folder en donde puedes crear clips y notas que todos podrán ver.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section featured center">
+            <div class="container">
+              <div class="row">
+                <div class="col s12 m6 offset-m3">
+                  <p>Swarmly es simple, pero los grupos tienen lo necesario para crear <strong>la mejor experiencia de aprendizaje colaborativo.</strong>
+                  Comunicate en tiempo real. Comparte archivos desde tu dispositivo. Crea notas para compartir lo que sabes. Encuentra una Zona Swarmly y aprende en fisico lo que tu quieras de forma gratuita.</p>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col s12">
+                  <img src="https://res.cloudinary.com/swarmly/image/upload/v1542425263/functionalities.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div> 
+
+
+          <!-- Buy It -->
+          <div class="section secondary-color center">
+            <div class="container">
+              <div class="row">
+                <div class="col s12 m6 offset-m3">
+                  <p class="white-text center">Forma parte del movimiento Swarmly por un aprendizaje colaborativo y una educación gratuita para todos #SelfLearning #SwarmlyZone</p>
+                  <br>
+                  <%= link_to 'Regístrate', new_user_session_path, {:style=>'text-transform:none;font-size:large;', :class => "waves-effect waves-light accent-color btn-large"} %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section featured center">
+            <div class="container">
+              <div class="row">
+                <div class="col s12 m6">
+                  <p class="top-20">Swarmly funciona en todos tus dispositivos y sincroniza todos tus clips y notas, estés donde estés. Es tan sencillo como añadir Swarmly a pantalla de inicio y estás listo para disfrutar una mejor experiencia.</p>
+                  <div class="top-20">
+                    <i class="ion-social-apple m-20" style="font-size: 4.4rem"></i>
+                    <i class="ion-social-android" style="font-size: 4.4rem"></i>
+                    <i class="ion-social-windows m-20" style="font-size: 4.4rem"></i>
+                  <div>
+                </div>
+                </div>
+                </div>
+                <div class="col s12 m6">
+                  <img class="m-0" src="https://res.cloudinary.com/swarmly/image/upload/v1542450451/multiplataforma.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div> 
+
+          <div class="section featured tertiary-color center">
+            <div class="container">
+              <div class="row valign-wrapper">
+                <div class="col s12 m6 l4">
+                  <img class="m-0" src="https://res.cloudinary.com/swarmly/image/upload/v1542600737/botlanding.svg" alt="">
+                </div>
+                <div class="col s12 m6 l8">
+                  <p class="white-text">Hola soy Swarmbot, me verás por aquí, siempre estaré para ayudarte.</p>
+                </div>
+              </div>
+            </div>
+          </div> 
+
+          <!-- Footer -->
+
+          <footer class="page-footer accent-color">
+              <div class="section container">
+                <div class="row">
+                  <div class="col l6 s12">
+                    <h5 class="heading white-text">Swarmly</h5>
+                    <p class="grey-text text-lighten-4">La mejor experiencia de aprendizaje colaborativo, la nueva manera en la que compartes y aprendes de 
+                    <br>forma gratuita y flexible, estés donde estés.
+                    </p>
+                  </div>
+                  <div class="col l3 s12">
+                    <h5 class="heading white-text">Empresa</h5>
+                    <ul>
+                      <li><a class="white-text" href="#!">Quiénes somos</a></li>
+                      <li><a class="white-text" href="#!">Centro de ayuda</a></li>
+                      <li><a class="white-text" href="#!">Blog</a></li>
+                      <li><a class="white-text" href="#!">Privacidad y condiciones</a></li>
+                    </ul>
+                  </div>
+                  <div class="col l3 s12">
+                    <h5 class="heading white-text">Siguenos</h5>
+                    <ul>
+                      <li><a href="https://www.facebook.com/Swarmlyapp/"><i class="ion-social-facebook m-10 white-text"></i></a></li>
+                      <li><a href="https://twitter.com/Swarmlyapp"><i class="ion-social-twitter m-10 white-text"></i></a></li>
+                      <li><a href="https://www.instagram.com/swarmlyapp/"><i class="ion-social-instagram m-10 white-text"></i></a></li>
+                      <li><a href="https://www.youtube.com/channel/UCjlAg6Zbj6adG6Dmd6yVExQ"><i class="ion-social-youtube m-10 white-text"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="footer-copyright">
+                <div class="container center">
+                <span>Made with <i class="ion-ios-heart"></i> by Swarmly</span>
+                </div>
+              </div>
+            </footer>
+<% end %>

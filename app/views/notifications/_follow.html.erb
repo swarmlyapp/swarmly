@@ -1,0 +1,33 @@
+  <% if notification.actor.present? %>
+  <li class="collection-item white z-depth-1">
+     <div class="notify-header">
+      <% if notification.actor.userspic.present? %>
+          <%= link_to image_tag(notification.actor.userspic.url(:picture_display), class: 'avatar circle'), main_app.user_path(notification.actor) %>
+      <% elsif notification.actor.remote_avatar.present? %>
+          <%= link_to image_tag(notification.actor.remote_avatar, class: 'avatar circle'), main_app.user_path(notification.actor) %>
+      <% else %>
+          <%= link_to image_tag("noprofile.png", class: 'avatar circle'), main_app.user_path(notification.actor) %>
+      <% end %>
+      <div class="notify-author">
+        <span>Comunidad</span>
+        <span class="regular"><%= link_to notification.actor.username, main_app.user_path(notification.actor) %>
+        te ha empezado a seguir
+        </span>
+        <span class="createat"><%= l notification.created_at, format: :short %></span>
+      </div>
+    </div>
+  </li>
+  <% else %>
+    <li class="collection-item white z-depth-1">
+      <div class="notify-header">
+        <div class="unknow-avatar accent-color">
+          <i class="ion-android-person-add"></i>
+        </div>
+        <div class="notify-author">
+          <span>Comunidad</span>
+          <span class="regular">Un miembro de la comunidad te empezó a seguir</span>
+          <span class="createat"><%= l notification.created_at, format: :short %></span>
+        </div>
+      </div>
+    </li>
+  <% end %>

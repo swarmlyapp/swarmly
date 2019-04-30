@@ -1,0 +1,10 @@
+development:
+  adapter: async
+
+test:
+  adapter: async
+
+production:
+  adapter: redis
+  url: redis://redistogo:e64535c4948c4d1bcd4b60a6c7de191a@spinyfin.redistogo.com:9798/
+  channel_prefix: swarmly_production

@@ -1,0 +1,61 @@
+<% provide(:title, "Ajustes de perfil #{@user.username}") %>
+      <div id="toolbar" class="primary-color z-depth-1">
+      <div class="logo-container">
+          <%= link_to root_path do %>
+            <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
+          <% end %>
+      </div>
+        <% if logged_in? %>
+        <div class="toolbar-item">
+            <%= link_to conducta_path do %>
+                <i class="ion-android-alert"></i>
+            <% end %>
+            <%= link_to destroy_user_session_path, method: :delete do %>
+                <i class="ion-android-exit"></i>
+            <% end %>
+        </div> 
+        <% else %> 
+          <div class="toolbar-item">
+            <%= link_to new_user_session_path do %>
+                <i class="ion-android-open"></i>
+            <% end %>
+          </div> 
+        <% end %>        
+      </div> 
+            <%= render "shared/error_messages", object: @user %>
+            <div class="page animated fadeinup">
+              <div class="container">
+                <div class="row">
+                  <div class="col s12 m6 offset-m3">
+                    <div class="card form-inputs top-20 p-20">
+                      <%= form_for(@user) do |f| %>
+                        <div class="input-field animated fadeinright">
+                          <%= f.text_field :username, class: "validate", placeholder: "Nombre de usuario (sin espacios)" %>
+                        </div>
+                        
+                        <div class="input-field animated fadeinright">
+                          <%= f.text_field :fullname, class: "validate", placeholder: "Tú nombre" %>
+                        </div>
+                        
+                        <div class="input-field animated fadeinright">
+                          <%= f.text_field :about, class: "validate", placeholder: "Cuentanos un poco de tí..." %>
+                        </div>
+                        
+                      <div class="file-field input-field">
+                        <div class="btn secondary-color">
+                          <span>Foto del perfil</span>
+                          <%= f.file_field :userspic, accept: 'image/jpeg,image/gif,image/png' %>
+                        </div>
+                        <div class="file-path-wrapper">
+                          <input class="file-path validate" type="text">
+                        </div>
+                      </div>
+                        
+                        <%= f.submit "Guardar", class: "btn-waves-effect waves-light btn-large accent-color block animated bouncein delay-6", data: { disable_with: "Espera..." } %>
+                        <%= link_to "Cambiar datos de cuenta", edit_user_registration_path %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 

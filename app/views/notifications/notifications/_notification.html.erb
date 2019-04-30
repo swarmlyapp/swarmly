@@ -1,0 +1,7 @@
+<%= cache(['notifications', Notifications::VERSION, notification]) do %>
+<div id="notification-<%= notification.id %>"
+     data-id="<%= notification.id %>"
+     class="notification-<%= notification.notify_type %>">
+      <%= render partial: "/notifications/#{notification.notify_type}", locals: { notification: notification } %>
+</div>
+<% end %>

@@ -1,0 +1,24 @@
+<% if current_user %>
+  <div class="card-feedback">
+    <div class="card-users">
+        <%= link_to note_up_vote_path(note), method: :post, remote: true do %>
+          <i class="ion-arrow-up-b"></i> 
+        <% end %> 
+        <%= content_tag :span, id: "note-upvote-#{note.id}" do %>
+          <%= note.up_votes %>
+        <% end %>
+        <%= link_to note_down_vote_path(note), method: :post, remote: true do %>
+          <i class="ion-arrow-down-b"></i>
+        <% end %> 
+        <%= content_tag :span, id: "note-downvote-#{note.id}" do %>
+          <%= note.down_votes %>
+        <% end %>
+    </div>
+    <div class="card-share">
+      <i class="ion-android-star accent-text"></i> 
+      <%= content_tag :span, id: "votes-note-#{note.id}" do %>
+        <%= note.points %> rank
+      <% end %>
+    </div>
+  </div>
+<% end %>

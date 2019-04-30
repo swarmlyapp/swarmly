@@ -1,0 +1,236 @@
+      <% provide(:title, "Nota #{@note.name}") %>
+      <div id="toolbar" class="primary-color z-depth-1">
+      <div class="logo-container">
+          <%= link_to root_path do %>
+            <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
+          <% end %>
+      </div>
+        <% if logged_in? %>
+        <div class="toolbar-item">
+            <%= link_to new_group_note_path(@group) do %>
+                <i class="ion-android-add-circle"></i>
+            <% end %>
+
+            <% if current_user.userspic.present? %>
+                    <%= link_to image_tag(current_user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(current_user) %>
+                <% elsif current_user.remote_avatar.present? %>
+                    <%= link_to image_tag(current_user.remote_avatar, class: 'media-left avatar small'), user_path(current_user) %>
+                <% else %>
+                    <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(current_user) %>
+            <% end %>
+        </div> 
+        <% else %> 
+          <div class="toolbar-item">
+            <%= link_to new_user_session_path do %>
+                <i class="ion-android-open"></i>
+            <% end %>
+        </div> 
+        <% end %>        
+      </div> 
+
+      <div class="page animated fadeinup">
+        <div class="hero-material accent-color animated fadeindown">
+          <div class="container">
+            <div class="row">
+              <div class="col s12">
+              <div class="progress-container">
+                <div class="progress-bar" id="swarmlybar"></div>
+              </div> 
+              <div class="banner-title p-20"><%= @note.name %></div>
+              </div>
+            </div>
+          </div>            
+        </div>
+        
+        <div class="container">
+          <div class="row">
+            <div class="col s12">        
+              <%= render partial: "votes/voter", locals: {note: @note} %>
+            </div>
+          </div>
+        </div> 
+
+        <!-- Article Content -->
+        <div class="container">
+          <div class="row">
+            <div class="col s12">
+              <div class="animated fadeinup delay-1">
+                <div class="p-20">
+                  <div>
+                    <% @note.tags.each do |tag| %>
+                      #<%= link_to tag.name, tag_path(tag) %> 
+                    <% end %>
+                  </div>
+                  <br>
+                  <div class="regular"><%= sanitize @note.body %></div>
+                  <br>
+                  <%= link_to group_path(@group) do %>
+                    <h3><i class="ion-chatbubble-working accent-text"></i> Comentar</h2>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="container">
+          <div class="row">
+            <div class="col s12">
+              <div class="media-share-author media-author animated fadeinright delay-2">
+                <% if @note.user.userspic.present? %>
+                    <%= link_to image_tag(@note.user.userspic.url(:picture_display), class: 'avatar'), user_path(@note.user.id) %>
+                  <% elsif @note.user.remote_avatar.present? %>
+                    <%= link_to image_tag(@note.user.remote_avatar, class: 'avatar'), user_path(@note.user.id) %>
+                  <% else %>
+                    <%= link_to image_tag("noprofile.png", class: 'avatar'), user_path(@note.user.id) %>
+                <% end %>
+                <span><%= link_to @note.user.username.capitalize, user_path(@note.user.id) %>
+                <% if @note.user.admin? %>
+                  <i class="ion-checkmark-circled"></i>  
+                <% end %>
+                </span>
+                <% if logged_in? && (@note.user==current_user || current_user.admin?) %>
+                  <div class="media-social-share">
+                    <%= link_to edit_note_path(@note) do %>
+                      <i class="ion-android-create"></i>  
+                    <% end %>
+                    <%= link_to note_path(@note), method: :delete, data:{confirm: "¿Estás seguro que quieres eliminar esta nota?"} do %>
+                      <i class="ion-android-delete"></i>  
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comments grey white">
+          <div class="container">
+            <div class="row">
+              <div class="col s12">
+                <% if logged_in? && (@note.user==current_user || current_user.admin?) %>
+                  <div class="media-top-object animated fadeinright delay-2">
+                    <div class="media-body">
+                      <h3 style="margin-bottom:0px;">Adjuntar un archivo:</h3>
+                    </div>
+                    <div class="note-files">
+                      <a class="modal-trigger" href="#modal-attach"><i class="ion-android-add-circle"></i></a>
+                    </div>
+                  </div>
+                <% end %>
+                <div id="media-contents">
+                  <% if @media_contents.empty? %>
+                    <h5 id="no-media">Nota sin archivos adjuntos</h5>
+                  <% else %>
+                    <div class="media-top-object animated fadeinright delay-2">
+                      <div class="media-body">
+                        <h5>Documentos</h5>
+                      </div>
+                      <%= link_to delete_all_path(@note.id), method: :delete, id: 'delete-all', disabled: @media_contents.empty? do %>
+                        <h5>Eliminar todos</h5> 
+                      <% end %>
+                    </div>
+                    <% @media_contents.each do |media| %>
+                      <div class="media-top-object animated fadeinright delay-2">
+                        <div class="note-files">
+                          <i class="ion-android-document accent-text"></i>
+                        </div>
+                        <div class="media-body">
+                          <%= link_to "Descargar", media.attachment_url %>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div> 
+
+      <div id="modal-attach" class="modal">
+        <div class="modal-content">
+          <div class="media-top-object">
+            <div class="note-files secondary-color">
+              <i class="ion-android-document accent-text"></i>
+            </div>
+            <div class="media-body">
+              <h1>Documentos</h1>
+            </div>
+          </div>
+          <%= form_tag '/attachments', method: :post, class: 'dropzone form', id: 'media-dropzone', style: 'border:0px;padding:0px;min-height:0px;' do %>
+            <div class="dz-message">
+              <i class="ion-android-upload accent-text" style="font-size: 55px;"></i>
+              <h4>Arrastra y suelta tus archivos
+              <br>
+              O haz clic para subir
+              </h4>
+            </div>
+            <div class="fallback">
+              <%= file_field_tag 'media', multiple: true %>
+            </div>
+            <%= hidden_field_tag 'note_id', @note.id %>
+          <% end %>
+        </div>
+      </div>
+
+      <nav class="no-labels-nav">
+        <%= link_to group_clips_path(@group), :class => "no-labels-nav__action" do %>
+          <i class="ion-android-image no-labels-nav__icon"></i>
+        <% end %> 
+  
+        <%= link_to group_notes_path(@group), :class => "no-labels-nav__action--active" do %>
+          <i class="ion-android-document no-labels-nav__icon"></i>
+        <% end %>
+  
+        <%= link_to group_zones_path(@group), :class => "no-labels-nav__action" do %>
+          <i class="ion-android-map no-labels-nav__icon"></i>
+        <% end %>
+      </nav>
+
+      <script>
+      $(document).ready(function() {
+        $('.modal-trigger').leanModal(); 
+        var mediaDropzone = new Dropzone("#media-dropzone");
+        Dropzone.options.mediaDropzone = false;
+        mediaDropzone.options.acceptedFiles = ".pdf, .pptx, .doc, .htm, .html, .docx, .jpg, .jpeg, .gif, .png, .rar, .zip";
+        mediaDropzone.on("complete", function(files) {
+          var _this = this;
+          if (_this.getUploadingFiles().length === 0 && _this.getQueuedFiles().length === 0) {
+            setTimeout(function(){
+              $('#modal-attach').closeModal();
+              var acceptedFiles = _this.getAcceptedFiles();
+              var rejectedFiles = _this.getRejectedFiles();
+      
+              for(var index = 0; index < acceptedFiles.length; index++) {
+                var file = acceptedFiles[index];
+                var response = JSON.parse(file.xhr.response);
+                appendContent(response.attachment.url);
+              }
+      
+              if(acceptedFiles.length != 0) {
+                console.log("Uploaded files successfully");
+              }
+              if(rejectedFiles.length != 0) {
+                console.log("Error uploading");
+              }
+      
+              _this.removeAllFiles();
+      
+            }, 2000);
+          }
+        });
+
+      
+      var appendContent = function(attachmentUrl) {
+        $("#media-contents").append('<div class="media-top-object">' +
+          '<div class="note-files"><i class="ion-android-document accent-text"></i>' +
+          '</div>' +
+          '<div class="media-body">' +
+          '<a href="' + attachmentUrl + '">Descargar</a>' +
+          '</div></div>');
+        $("#delete-all").removeAttr('disabled');
+        $("#no-media").html("Archivos adjuntos");
+      };
+      });
+      </script>

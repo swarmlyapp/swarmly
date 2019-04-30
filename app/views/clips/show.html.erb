@@ -1,0 +1,81 @@
+      <% provide(:title, "Clip #{@clip.caption}") %>
+      <div id="toolbar" class="primary-color z-depth-1">
+      <div class="logo-container">
+          <%= link_to root_path do %>
+            <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
+          <% end %>
+      </div>
+        <% if logged_in? %>
+        <div class="toolbar-item">
+            <%= link_to new_group_clip_path(@group) do %>
+                <i class="ion-android-add-circle"></i>
+            <% end %>
+
+            <% if current_user.userspic.present? %>
+                    <%= link_to image_tag(current_user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(current_user) %>
+                <% elsif current_user.remote_avatar.present? %>
+                    <%= link_to image_tag(current_user.remote_avatar, class: 'media-left avatar small'), user_path(current_user) %>
+                <% else %>
+                    <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(current_user) %>
+            <% end %>
+        </div> 
+        <% else %> 
+          <div class="toolbar-item">
+            <%= link_to new_user_session_path do %>
+                <i class="ion-android-open"></i>
+            <% end %>
+        </div> 
+        <% end %>        
+      </div> 
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m8 offset-m2">
+            <div class="card clip">
+              <div class="animated fadein">
+                <%= image_tag(@clip.clipspic.url) %>
+              </div>
+              <div class="p-20 animated fadeinup delay-1">
+                <h2><%= @clip.caption %></h2>
+                <p class="regular">Creado hace <%= time_ago_in_words(@clip.created_at) %></p>
+              </div>
+              <div class="media-share-author media-author animated fadeinright delay-2">
+                <% if @clip.user.userspic.present? %>
+                    <%= link_to image_tag(@clip.user_userspic.url(:picture_display), class: 'avatar'), user_path(@clip.user.id) %>
+                  <% elsif @clip.user.remote_avatar.present? %>
+                    <%= link_to image_tag(@clip.user.remote_avatar, class: 'avatar'), user_path(@clip.user_id) %>
+                  <% else %>
+                    <%= link_to image_tag("noprofile.png", class: 'avatar'), user_path(@clip.user.id) %>
+                <% end %>
+                <span><%= link_to @clip.user.username.capitalize, user_path(@clip.user.id) %>
+                <% if @clip.user.admin? %>
+                  <i class="ion-checkmark-circled"></i>  
+                <% end %>
+                </span>
+                <% if logged_in? && (@clip.user==current_user || current_user.admin?) %>
+                <div class="media-social-share">
+                  <%= link_to edit_clip_path(@clip) do %>
+                    <i class="ion-android-create"></i>  
+                  <% end %>
+                  <%= link_to clip_path(@clip), method: :delete, data:{confirm: "Estás seguro que quieres eliminar este clip?"} do %>
+                    <i class="ion-android-delete"></i>  
+                  <% end %>
+                </div>
+              <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <nav class="no-labels-nav">
+      <%= link_to group_clips_path(@group), :class => "no-labels-nav__action--active" do %>
+        <i class="ion-android-image no-labels-nav__icon"></i>
+      <% end %> 
+
+      <%= link_to group_notes_path(@group), :class => "no-labels-nav__action" do %>
+        <i class="ion-android-document no-labels-nav__icon"></i>
+      <% end %>
+
+      <%= link_to group_zones_path(@group), :class => "no-labels-nav__action" do %>
+        <i class="ion-android-map no-labels-nav__icon"></i>
+      <% end %>
+    </nav>

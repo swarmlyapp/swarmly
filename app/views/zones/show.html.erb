@@ -1,0 +1,106 @@
+<% provide(:title, "Zona Swarmly #{@zone.name}") %>
+<div id="toolbar" class="primary-color z-depth-1">
+  <div class="logo-container">
+    <%= link_to root_path do %>
+      <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
+    <% end %>
+  </div>
+  <% if logged_in? %>
+  <div class="toolbar-item">
+    <%= link_to new_group_zone_path(@group) do %>
+      <i class="ion-android-add-circle"></i>
+    <% end %>
+    <% if current_user.userspic.present? %>
+      <%= link_to image_tag(current_user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(current_user) %>
+    <% elsif current_user.remote_avatar.present? %>
+      <%= link_to image_tag(current_user.remote_avatar, class: 'media-left avatar small'), user_path(current_user) %>
+    <% else %>
+      <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(current_user) %>
+    <% end %>
+  </div> 
+  <% else %> 
+    <div class="toolbar-item">
+      <%= link_to new_user_session_path do %>
+        <i class="ion-android-open"></i>
+      <% end %>
+    </div> 
+  <% end %>        
+</div>
+
+<div class="page animated fadeinup">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="card m-20 animated fadeinup delay-5">
+          <div class="card-author">
+            <div class="media-top-object middle p-10 m-0">
+              <% if @zone.user.userspic.present? %>
+                  <%= link_to image_tag(@zone.user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(@zone.user.id) %>
+              <% elsif @zone.user.remote_avatar.present? %>
+                  <%= link_to image_tag(@zone.user.remote_avatar, class: 'media-left avatar small'), user_path(@zone.user_id) %>
+              <% else %>
+                  <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(@zone.user.id) %>
+              <% end %>																
+              <div class="media-body">
+                <span><%= link_to @zone.user.username.capitalize, user_path(@zone.user.id) %>
+                <% if @zone.user.admin? %>
+                    <i class="ion-checkmark-circled"></i>  
+                <% end %>
+                </span>       
+              </div>
+              <% if logged_in? && (@zone.user==current_user || current_user.admin?) %>
+                <div class="group-actions">
+                    <%= link_to edit_zone_path(@zone) do %>
+                            <i class="ion-android-create group-action"></i>  
+                    <% end %>
+                    <%= link_to zone_path(@zone), method: :delete, data:{confirm: "¿Seguro que quieres eliminar esta Zona Swarmly?"} do %>
+                        <i class="ion-android-delete group-action"></i>  
+                    <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+            <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{@zone.latitude},#{@zone.longitude}&zoom=14&size=640x400&markers=color:black%7C#{@zone.latitude},#{@zone.longitude}&key=#{ENV['GOOGLE_API_KEY']}" %>
+        </div>
+        <ul class="collapsible m-20 regular">
+          <li>
+            <div class="collapsible-header"><i class="ion-android-list accent-text"></i>Descripción</div>
+            <div class="collapsible-body"><span><%= @zone.name %></span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="ion-android-calendar accent-text"></i>Fecha y hora de encuentro</div>
+            <div class="collapsible-body"><span><%= @zone.day %>, <%= @zone.hour %></span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="ion-android-pin accent-text"></i>Ubicación</div>
+            <div class="collapsible-body"><span><%= @zone.address %></span></div>
+          </li>
+          <% if @zone.price? %>
+          <li>
+            <div class="collapsible-header"><i class="ion-pricetag accent-text"></i>Monto a cobrar por hora</div>
+            <div class="collapsible-body"><span><%= @zone.price %> dólares</span></div>
+          </li>	
+          <% end %>											
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="no-labels-nav">
+  <%= link_to group_clips_path(@group), :class => "no-labels-nav__action" do %>
+    <i class="ion-android-image no-labels-nav__icon"></i>
+  <% end %> 
+  <%= link_to group_notes_path(@group), :class => "no-labels-nav__action" do %>
+    <i class="ion-android-document no-labels-nav__icon"></i>
+  <% end %>
+  <%= link_to group_zones_path(@group), :class => "no-labels-nav__action--active" do %>
+    <i class="ion-android-map no-labels-nav__icon"></i>
+  <% end %>
+</nav>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('.collapsible').collapsible();
+  });
+</script>

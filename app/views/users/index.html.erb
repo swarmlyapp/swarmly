@@ -1,0 +1,63 @@
+    <% provide(:title, 'Todos los usuarios') %>
+      <div id="toolbar" class="primary-color z-depth-1">
+      <div class="logo-container">
+          <%= link_to root_path do %>
+            <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
+          <% end %>
+      </div>
+        <% if logged_in? %>
+        <div class="toolbar-item">
+            <% if current_user.userspic.present? %>
+                    <%= link_to image_tag(current_user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(current_user) %>
+                <% elsif current_user.remote_avatar.present? %>
+                    <%= link_to image_tag(current_user.remote_avatar, class: 'media-left avatar small'), user_path(current_user) %>
+                <% else %>
+                    <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(current_user) %>
+            <% end %>
+        </div> 
+        <% else %> 
+          <div class="toolbar-item">
+            <%= link_to new_user_session_path do %>
+                <i class="ion-android-open"></i>
+            <% end %>
+        </div> 
+        <% end %>        
+      </div> 
+    <nav class="bottom-nav">
+      <%= link_to root_path, :class => "bottom-nav__action bottom-nav__action" do %>
+        <i class="ion-home bottom-icon"></i>
+        <span class="bottom-nav__label">Inicio</span>
+      <% end %> 
+
+      <%= link_to categories_path, :class => "bottom-nav__action bottom-nav__action" do %>
+        <i class="ion-android-apps bottom-icon"></i>
+        <span class="bottom-nav__label">Categorias</span>
+      <% end %>
+
+      <%= link_to groups_path, :class => "bottom-nav__action bottom-nav__action" do %>
+        <i class="ion-android-compass bottom-icon"></i>
+        <span class="bottom-nav__label">Explorar</span>
+      <% end %>
+    </nav>
+    <div class="page animated fadeinup">
+            <div class="container">
+              <div class="row">
+                <div class="col s12 m6 offset-m3">
+                  <% if current_user.admin? %>
+                    <div class="user-card animated fadein delay-1">
+                      <div class="user-header">
+                        <span class="users-count-label">
+                          <i class="ion-android-people"></i>
+                        </span>        
+                        <div class="user-info">
+                          <span>Hola <%= current_user.fullname %>, hay <%= @users.count %> usuarios en Swarmly</span>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                  <%= render @users %>
+                </div>
+              </div>
+            </div>
+    </div>
+

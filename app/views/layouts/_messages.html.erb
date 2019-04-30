@@ -1,0 +1,11 @@
+<% flash.each do |name, msg| %>
+  <% if msg.class == Array %>
+    <% msg.each do |message| %>
+        <%= javascript_tag "Materialize.toast('#{message}', 1000)" %>
+    <% end %>
+  <% else %>
+    <% flash.each do |message_type, message| %>
+    <%= javascript_tag "Materialize.toast('#{message}', 1000)" %>
+    <% end %> 
+  <% end %>
+<% end %>

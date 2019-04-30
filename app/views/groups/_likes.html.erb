@@ -1,0 +1,10 @@
+<% if logged_in? && current_user.likes?(group) %>
+    <%= link_to group_like_path(group), method: :delete, remote: true do %>
+        <i class="ion-heart accent-text"></i>
+    <% end %>
+<% else %>
+    <%= link_to group_like_path(group), method: :post, remote: true do %>
+        <i class="ion-heart"></i>
+    <% end %>
+<% end %>
+<span><%= group.likes.count %></span>

@@ -1,0 +1,24 @@
+          <div class="note">
+            <div class="media-top-object map_box">
+              <%= link_to image_tag(zone.zonespic.url(:picture_display), class: 'media-left'), zone_path(zone) %>
+              <div class="media-body">
+                <h4 class="note-title"><%= link_to zone.name, zone_path(zone) %></h4>
+                <div class="card-feedback b0">
+                  <div class="card-users">
+                    <i class="ion-android-calendar accent-text"></i> <span class="regular"><%= zone.day %></span>
+                    <i class="ion-android-time accent-text"></i> <span class="regular"><%= zone.hour %></span>
+                  </div>
+                  <div class="card-share">
+                    <i class="ion-pricetag"></i>
+                    <span class="regular">
+                    <% if zone.price? %>
+                      <%= zone.price %>
+                    <% else %>
+                      FREE
+                    <% end %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>

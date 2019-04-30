@@ -1,0 +1,48 @@
+<% if notification.user == notification.actor %>
+  <li class="collection-item white z-depth-1">
+    <div class="notify-header">
+      <div class="unknow-avatar accent-color">
+        <i class="icon ion-md-image"></i>
+      </div>
+      <div class="notify-author">
+        <span>Tú</span>
+        <span class="regular">Creaste un clip en tu grupo</span>
+        <span class="createat"><%= l notification.created_at, format: :short %></span>
+      </div>
+    </div>
+  </li>
+<% else %>
+  <% if notification.target.present? && notification.actor.present? && notification.second_target.present? %>
+  <li class="collection-item white z-depth-1">
+    <div class="notify-header">
+      <% if notification.actor.userspic.present? %>
+          <%= link_to image_tag(notification.actor.userspic.url(:picture_display), class: 'avatar circle'), main_app.user_path(notification.actor) %>
+      <% elsif notification.actor.remote_avatar.present? %>
+          <%= link_to image_tag(notification.actor.remote_avatar, class: 'avatar circle'), main_app.user_path(notification.actor) %>
+      <% else %>
+          <%= link_to image_tag("noprofile.png", class: 'avatar circle'), main_app.user_path(notification.actor) %>
+      <% end %>
+      <div class="notify-author">
+        <span><%= link_to notification.actor.username, main_app.user_path(notification.actor) %>
+        ha creado un clip en <%= link_to notification.second_target.name, main_app.group_clips_path(notification.second_target) %>
+        </span>
+        <span class="regular"><%= notification.target.caption %></span>
+        <span class="createat"><%= l notification.created_at, format: :short %></span>
+      </div>
+    </div>
+  </li>
+  <% else %>
+    <li class="collection-item white z-depth-1">
+      <div class="notify-header">
+        <div class="unknow-avatar accent-color">
+          <i class="icon ion-md-image"></i>
+        </div>
+        <div class="notify-author">
+          <span>Comunidad</span>
+          <span class="regular">Un miembro de la comunidad creó un clip en tu grupo</span>
+          <span class="createat"><%= l notification.created_at, format: :short %></span>
+        </div>
+      </div>
+    </li>
+  <% end %>
+<% end %>

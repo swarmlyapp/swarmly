@@ -1,0 +1,36 @@
+        <div class="card m-20">
+          <div class="card-author">
+            <div class="media-top-object middle p-10 m-0">
+                <% if zone.user.userspic.present? %>
+                    <%= link_to image_tag(zone.user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(zone.user.id) %>
+                <% elsif zone.user.remote_avatar.present? %>
+                    <%= link_to image_tag(zone.user.remote_avatar, class: 'media-left avatar small'), user_path(zone.user_id) %>
+                <% else %>
+                    <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(zone.user.id) %>
+                <% end %>
+              <div class="media-body">
+                <span><%= link_to zone.user.username.capitalize, user_path(zone.user.id) %></span>
+                <span class="regular">ha creado <%= link_to zone.name, zone_path(zone) %></span>         
+              </div>
+            </div>
+          </div>
+          <div class="card-image">
+            <%= link_to image_tag(zone.zonespic.url(:picture_display)), zone_path(zone) %>
+          </div>
+          <div class="card-feedback b0">
+            <div class="card-users">
+              <i class="ion-android-calendar accent-text"></i> <span class="regular"><%= zone.day %></span>
+              <i class="ion-android-time accent-text"></i> <span class="regular"><%= zone.hour %></span>
+            </div>
+            <div class="card-share">
+              <i class="ion-pricetag"></i> 
+              <span>
+              <% if zone.price? %>
+                <%= zone.price %>
+              <% else %>
+                FREE
+              <% end %>
+              </span>
+            </div>
+          </div>
+        </div>

@@ -1,0 +1,49 @@
+    <% provide(:title, 'Login') %>
+    <div class="form-body white">
+        <div class="website-logo">
+            <a href="index.html">
+                <div class="logoland">
+                <%= link_to root_path do %>
+                  <img class="logo-size" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="">
+                <% end %>
+                </div>
+            </a>
+        </div>
+        <div class="gridland">
+            <div class="img-holder">
+                <div class="bg"></div>
+            </div>
+            <div class="form-holder">
+                <div class="form-content white">
+                    <div class="form-items regular">
+                        <h3>Empieza a compartir y aprender.</h3>
+                        <p class="regular">Crea grupos, clips, notas y encuentra una Zona Swarmly donde puedas aprender.</p>
+                        <div class="page-links">
+                            <%= link_to 'Ingresar', new_session_path(@user), :class => "active" %>
+                            <%= link_to 'Regístrate', new_registration_path(@user) %>
+                        </div>
+                        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                          <%= f.email_field :email, class: 'form-control', placeholder: "Email" %>
+                          <%= f.password_field :password, class: 'form-control', placeholder: "Password" %>
+                          <div class="form-button">
+                            <%= button_tag(type: "submit", class: "ibtn") do %>
+                                Entrar
+                            <% end %>
+                            <%= link_to 'Olvide la contraseña', new_password_path(@user), :class => "forgot" %>
+                          </div>
+                            <%= f.check_box :remember_me, class: "no-display"%>
+                        <% end %>
+                        <div class="other-links">
+                            <span>O ingresa con</span>
+                            <%= link_to user_facebook_omniauth_authorize_path do %>
+                                <i class="ion-social-facebook"></i>
+                            <% end %>                            
+                            <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+                                <i class="ion-social-google"></i>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

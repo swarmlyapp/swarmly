@@ -1,0 +1,39 @@
+    <% provide(:title, 'Reset Password') %>
+    <div class="form-body white">
+        <div class="website-logo">
+            <a href="index.html">
+                <div class="logoland">
+                <%= link_to root_path do %>
+                  <img class="logo-size" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="">
+                <% end %>                    
+                </div>
+            </a>
+        </div>
+        <div class="gridland">
+            <div class="img-holder">
+                <div class="bg"></div>
+            </div>
+            <div class="form-holder">
+                <div class="form-content white">
+                    <div class="form-items regular">
+                        <h3>Empieza a compartir y aprender.</h3>
+                        <p class="regular">Crea grupos, clips, notas y encuentra una Zona Swarmly donde puedas aprender.</p>
+                        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+                          <%= devise_error_messages! %>
+                          <% if @minimum_password_length %>
+                            <span><%= @minimum_password_length %> caracteres mínimo</span>
+                          <% end %>
+                          <%= f.hidden_field :reset_password_token %>
+                          <%= f.password_field :password, class: 'form-control', placeholder: "Contraseña" %>
+                          <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "Confirmación" %>
+                          <div class="form-button">
+                            <%= button_tag(type: "submit", class: "ibtn") do %>
+                                Crear contraseña
+                            <% end %>
+                          </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

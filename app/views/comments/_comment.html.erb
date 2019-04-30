@@ -1,0 +1,20 @@
+                <li class="message-left animated fadeinright delay-1">
+                        <% if comment.user.userspic.present? %>
+                          <%= link_to image_tag(comment.user.userspic.url(:picture_display), class: 'chat-preview'), user_path(comment.user_id) %>
+                        <% elsif comment.user.remote_avatar.present? %>
+                          <%= link_to image_tag(comment.user.remote_avatar, class: 'chat-preview'), user_path(comment.user_id) %>
+                        <% else %>
+                          <%= link_to image_tag("noprofile.png", class: 'chat-preview'), user_path(comment.user_id) %>
+                        <% end %>
+                  <span><%= link_to comment.user.username.capitalize, user_path(comment.user_id) %>
+                  <% if comment.user.admin? %>
+                    <i class="ion-checkmark-circled"></i>  
+                  <% end %>
+                  </span>
+                  <div class="message first regular">
+                    <p>
+                     <%= markdown(comment.description) %>
+                    </p>
+                  </div>
+                  <span class="comment-date"><%= time_ago_in_words(comment.created_at) %></span>
+                </li>

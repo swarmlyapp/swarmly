@@ -1,0 +1,5 @@
+<ul class="message-first">
+  <% comments.each do |comment| %>
+    <%=render(partial: "comments/comment", object: comment) %>
+  <% end %>
+</ul>

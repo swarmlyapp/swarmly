@@ -1,0 +1,55 @@
+        <div class="card fullscreen">
+          <% if logged_in? && (current_user == group.user || current_user.admin?) %>
+          <div class="group-actions">
+            <%= link_to edit_group_path(group) do %>
+                <i class="ion-android-create group-action"></i>  
+            <% end %>
+            <%= link_to group_path(group), method: :delete, data:{confirm: "¿Estás seguro que quieres eliminar este grupo?"} do %>
+              <i class="ion-android-delete group-action"></i>  
+            <% end %>
+          </div>
+          <% end %>
+          <div class="card-image">
+            <%= link_to image_tag(group.groupspic.url(:picture_display)), group_path(group) %>
+          </div>
+          <div class="card-feedback">
+            <div class="card-users">
+              <p id="group_<%= group.id %>_likes"><%= render partial: "/groups/likes", locals: {group: group} %></p>
+              <%= link_to group_path(group) do %>
+                <i class="ion-chatbubble-working accent-text"></i> <span><%= group.comments.count %></span>
+              <% end %>
+            </div>
+            <% if logged_in? %>
+              <div class="card-share">
+                <%= link_to group_clips_path(group) do %>
+                  <i class="ion-android-folder accent-text"></i> 
+                  <span>Folder</span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div class="card-content">
+            <h5><%= link_to group.name, group_path(group) %></h5>
+          </div>
+          <div class="card-group-author">
+            <div class="media-top-object middle">
+              <% if group.user.userspic.present? %>
+                  <%= link_to image_tag(group.user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(group.user_id) %>
+              <% elsif group.user.remote_avatar.present? %>
+                  <%= link_to image_tag(group.user.remote_avatar, class: 'media-left avatar small'), user_path(group.user_id) %>
+              <% else %>
+                  <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(group.user_id) %>
+              <% end %>
+              <div class="media-body">
+                <span class="small"><%= link_to group.user.username.capitalize, user_path(group.user.id) %></span>
+                <% if group.user.admin? %>
+                    <i class="ion-checkmark-circled"></i>  
+                <% end %>
+                <% if group.categories.any? %>
+                <span class="small">en </span>
+                <span class="small accent-text"><%= render group.categories %></span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>

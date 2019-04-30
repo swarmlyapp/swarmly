@@ -1,0 +1,73 @@
+<% provide(:title, 'Seguidores/siguiendo') %>
+<%= render 'layouts/navigation' %>
+    <nav class="bottom-nav">
+      <%= link_to root_path, :class => "bottom-nav__action bottom-nav__action" do %>
+        <i class="ion-home bottom-icon"></i>
+        <span class="bottom-nav__label">Inicio</span>
+      <% end %> 
+
+      <%= link_to categories_path, :class => "bottom-nav__action bottom-nav__action" do %>
+        <i class="ion-android-apps bottom-icon"></i>
+        <span class="bottom-nav__label">Categorías</span>
+      <% end %>
+
+      <%= link_to users_path, :class => "bottom-nav__action bottom-nav__action" do %>
+        <i class="ion-android-compass bottom-icon"></i>
+        <span class="bottom-nav__label">Explorar</span>
+      <% end %>
+    </nav>
+<div class="profile animated fadeinup">
+            <div class="container">
+              <div class="row">
+                <div class="col s12 m8 offset-m2">
+                  <div class="profile-author">
+                    <div class="media-top-object">
+                      <% if @user.userspic.present? %>
+                          <%= image_tag(@user.userspic.url(:picture_display), class: 'media-left avatar-profile') %>
+                        <% elsif @user.remote_avatar.present? %>
+                          <%= image_tag(@user.remote_avatar, class: 'media-left avatar-profile') %>
+                        <% else %>
+                          <%= image_tag("noprofile.png", class: 'media-left avatar-profile') %>
+                      <% end %>
+                      <div class="media-body left-align">
+                        <p class="profile-username"><%= @user.username %>
+                        <% if @user.admin? %>
+                            <i class="ion-checkmark-circled"></i>  
+                        <% end %>
+                        <% if @user==current_user %>
+                            <%= link_to users_path do %>
+                              <i class="ion-android-person-add"></i>
+                            <% end %>
+                        <% end %>
+                        </p>
+                        <% if @user==current_user %>
+                            <div class="follow-button"><%= link_to "Editar pefil", edit_user_path(current_user) %></div>
+                        <% else %>
+                          <%= render 'follow_form' if logged_in? %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="profile-bio">
+                      <h1 class="profile-description">
+                      <strong><%= @user.fullname %></strong> <%= @user.about %>
+                        <% if current_user.admin? %>
+                            <%= @user.email %>
+                        <% end %>
+                      </h1>
+                  </div>
+                  <div class="share-counter">
+                    <%= render 'shared/stats' %>
+                  </div>
+                </div>
+                </div>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col s12 m6 offset-m3">
+                      <%= render @users %>
+                    </div>
+                  </div>
+                </div>
+  </div>
+</div>
