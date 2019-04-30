@@ -4,12 +4,12 @@
     <title><%= full_title(yield(:title)) %></title>
     <meta name="description" content="Share your knowledge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, minimal-ui">
+    <%= favicon_link_tag %>
     <%= csrf_meta_tags %>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
-    <%= favicon_link_tag %>
+    <link href="https://unpkg.com/ionicons@4.0.0/dist/css/ionicons.min.css"rel="stylesheet"/>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link href="https://unpkg.com/ionicons@4.0.0/dist/css/ionicons.min.css"rel="stylesheet"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Swarmly">
     <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path "apple-touch-icon.png" %>">
