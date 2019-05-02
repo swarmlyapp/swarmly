@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount Notifications::Engine => "/notifications"
-  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
+  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'users/sessions'}
   root 'static_pages#home'
   get    'maps'   => 'static_pages#maps'
   get    'login'   => 'static_pages#login'

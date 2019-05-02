@@ -103,9 +103,9 @@ class User < ApplicationRecord
     super(conditions) 
   end 
   
-  def remember_me
-    true
-  end
+  # def remember_me
+  #   true
+  # end
 
   def userspic_size
     if userspic.size > 5.megabytes
