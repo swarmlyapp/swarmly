@@ -1,28 +1,14 @@
-                <div class="grid-item"> 
-                  <div class="card">
-                    <div class="card-image">
-                      <%= link_to image_tag(clip.clipspic.url), clip_path(clip) %>
-                    </div>
-                    <div class="card-content">
-                      <h4><%= link_to clip.caption, clip_path(clip) %></h4>
-                    </div>
-                    <div class="card-author">
-                      <div class="media-top-object middle">
-                        <% if clip.user.userspic.present? %>
-                            <%= link_to image_tag(clip.user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(clip.user.id) %>
-                          <% elsif clip.user.remote_avatar.present? %>
-                            <%= link_to image_tag(clip.user.remote_avatar, class: 'media-left avatar small'), user_path(clip.user.id) %>
-                          <% else %>
-                            <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(clip.user.id) %>
-                        <% end %>
-                        <div class="media-body">
-                          <span class="small"><%= link_to clip.user.username.capitalize, user_path(clip.user.id) %>
-                          <% if clip.user.admin? %>
-                            <i class="ion-checkmark-circled"></i>  
-                          <% end %>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <div class="c-clip z-depth-1 m-t-40 animated fadeinup delay-2">
+            <div class="c-widget">
+              <div class="c-widget-figure tertiary-color">
+                <svg width="24" height="24" viewBox="0 0 24 24" style="vertical-align:middle;fill:white;"><path d="M53.6,40.045a.98.98,0,0,1,1.26.126q3.435,3.444,6.877,6.88a.978.978,0,0,1,.241.893.967.967,0,0,1-.442.606,1.008,1.008,0,0,1-.748.108c-.4-.117-.64-.493-.94-.759-.931.92-1.851,1.85-2.779,2.773-.065.069-.177.134-.132.246a7.31,7.31,0,0,1-1.747,6.112,2.1,2.1,0,0,1-.542.495.968.968,0,0,1-1.1-.174C52.276,56.077,51,54.8,49.724,53.524q-3.015,3.008-6.027,6.021a1.028,1.028,0,0,1-.612.32.994.994,0,0,1-1.011-.6,1.026,1.026,0,0,1-.034-.61,1.354,1.354,0,0,1,.417-.609q2.951-2.946,5.9-5.893Q46.5,50.3,44.649,48.448a1.606,1.606,0,0,1-.239-.276.962.962,0,0,1,.007-1.048,2.634,2.634,0,0,1,.388-.4,7.251,7.251,0,0,1,5.355-1.883,7.955,7.955,0,0,1,.9.1c.978-.967,1.949-1.942,2.92-2.916-.187-.193-.381-.379-.564-.575A.97.97,0,0,1,53.6,40.045Z" transform="translate(-42.009 -39.871)"></path></svg>
+              </div>
+              <div style="flex:1">
+                <p style="font-size:20px;">
+                <%= link_to clip.caption, clip_path(clip) %>
+                </p>
+                <p class="secondary-text" style="font-weight: 400;">
+                Enviado por <span style="font-weight: 500;"><%= link_to clip.user.username.capitalize, user_path(clip.user.id) %></span></p>
+              </div>
+            </div>
+          </div>

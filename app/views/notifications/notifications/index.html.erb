@@ -1,66 +1,6 @@
     <% provide(:title, "Notificaciones") %>
-    <div id="toolbar" class="primary-color z-depth-1">
-      <div class="logo-container">
-        <a href="/">
-          <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
-        </a>        
-      </div>
-      <% if logged_in? %>
-        <div class="toolbar-item">
-          <a href="/groups/new">
-            <i class="ion-compose"></i>
-          </a>            
-          <a href="/favorites">
-            <i class="ion-android-bookmark"></i>
-          </a>
-
-          <% if Notification.unread_count(current_user) != 0 %>
-              <%= link_to notifications_path do %>
-                  <i class="ion-android-notifications red-text"></i>
-              <% end %>
-          <% else %>
-              <%= link_to notifications_path do %>
-                  <i class="ion-android-notifications"></i>
-              <% end %>
-          <% end %>
-          
-          <% if current_user.userspic.present? %>
-            <a href="/users/<%= "#{current_user.id}" %>">
-              <%= image_tag(current_user.userspic.url(:picture_display), class: 'media-left avatar small') %>
-            </a>
-          <% elsif current_user.remote_avatar.present? %>
-            <a href="/users/<%= "#{current_user.id}" %>">              
-              <%= image_tag(current_user.remote_avatar, class: 'media-left avatar small') %>
-            </a>
-          <% else %>
-            <a href="/users/<%= "#{current_user.id}" %>">
-              <%= image_tag("noprofile.png", class: 'media-left avatar small') %>
-            </a>
-          <% end %>
-        </div> 
-      <% else %>
-        <div class="toolbar-item">
-          <a href="/users/sign_in">
-            <i class="ion-android-open"></i>
-          </a>        
-        </div>
-      <% end %>
-    </div>
-
-    <nav class="bottom-nav">
-      <a class="bottom-nav__action bottom-nav__action" href="/">
-        <i class="ion-home bottom-icon"></i>
-        <span class="bottom-nav__label">Inicio</span>
-      </a>
-      <a class="bottom-nav__action bottom-nav__action" href="/categories">
-        <i class="ion-android-apps bottom-icon"></i>
-        <span class="bottom-nav__label">Categorías</span>
-      </a>
-      <a class="bottom-nav__action bottom-nav__action" href="/groups">
-        <i class="ion-android-compass bottom-icon"></i>
-        <span class="bottom-nav__label">Explorar</span>
-      </a>   
-    </nav>
+    <%= render 'layouts/navigation' %>
+    <%= render 'shared/bottom_nav' %>
     <% if @notifications.blank? %>
     <div class="page notification-page valign-wrapper accent-color animated fadeinup">
       <div class="container">
@@ -68,7 +8,7 @@
           <div class="col s12 m8 offset-m2">
             <div class="valign">
               <div class="center-align">
-                <i class="ion-android-notifications" style="font-size:115px;color:#3C4859"></i>
+                <i class="ion-android-notifications secondary-text" style="font-size:115px"></i>
               </div>
               <div class="center-align p-20">
                 <div class="card-panel animated fadein delay-2">

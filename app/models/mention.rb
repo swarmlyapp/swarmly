@@ -32,10 +32,9 @@ class Mention
   
     class UserMention < Mention
       def markdown_string(text)
-        host = 'https://www.swarmly.app/'
+        host = 'localhost:3000'
         text.gsub(/@#{mentionable.username}/i,
                   "[**@#{mentionable.username}**](#{user_url(mentionable, host: host)})")
       end 
     end
   end
-  

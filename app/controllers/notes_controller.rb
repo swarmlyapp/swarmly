@@ -10,17 +10,16 @@ class NotesController < ApplicationController
       @notes = @group.notes.all
     end
   
-    def delete_all
-      Note.find_by_id(params[:format]).attachments.delete_all
-      flash[:info] = "Documento eliminado"
-      redirect_to groups_path
-    end
+    #def delete_all
+    #  Note.find_by_id(params[:format]).attachments.delete_all
+    #  flash[:info] = "Documento eliminado"
+    #  redirect_to groups_path
+    #end
 
     # GET /notes/1
     # GET /notes/1.json
     def show
       @group= @note.group
-      @media_contents = Note.find_by_id(params[:id]).attachments.all
     end
   
     # GET /notes/new
@@ -70,6 +69,11 @@ class NotesController < ApplicationController
       end
     end
   
+    def savers
+      @note  = Note.find(params[:id])
+      @users = @event.savers.all
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_note

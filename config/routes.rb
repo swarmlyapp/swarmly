@@ -14,24 +14,36 @@ Rails.application.routes.draw do
   resources :categories, except: [:destroy]
   resources :relationships,       only: [:create, :destroy]
   resources :groups do
+    member do
+      post :join
+      post :quit
+    end
     resource :like, module: :groups
-    resources :favorites
     resources :comments, only: [:create]  
-    resources :clips, shallow: true
+    resources :clips, shallow: true do
+      resources :attachments, only: [:destroy]
+    end
     resources :zones, shallow: true
+    resources :links, shallow: true
     resources :notes, shallow: true do
-      resources :photos
+      member do
+        get :savers
+      end
       post '/up-vote' => "votes#up_vote", as: :up_vote
       post '/down-vote' => "votes#down_vote", as: :down_vote
     end
   end
   resources :tags
   resources :attachments, only: [:create]
-  resources :favorites
+  resources :saves, only: [:index, :create, :destroy]
+  resources :conversations do
+    resources :messages
+  end
   resources :users, except: [:new] do
     member do
       get 'following'
       get 'followers'
+      get :saving
     end
   end
   mount ActionCable.server => "/cable"

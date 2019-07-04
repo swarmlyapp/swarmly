@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_31_070810) do
+ActiveRecord::Schema.define(version: 2019_12_10_013618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "attachments", force: :cascade do |t|
-    t.integer "note_id"
+    t.integer "clip_id"
     t.string "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 2019_01_31_070810) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "group_id"
-    t.string "clipspic"
     t.index ["user_id"], name: "index_clips_on_user_id"
   end
 
@@ -47,13 +46,11 @@ ActiveRecord::Schema.define(version: 2019_01_31_070810) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "group_id"
+  create_table "conversations", force: :cascade do |t|
+    t.integer "sender_id"
+    t.integer "recipient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_favorites_on_group_id"
-    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -72,6 +69,13 @@ ActiveRecord::Schema.define(version: 2019_01_31_070810) do
     t.integer "category_id"
   end
 
+  create_table "group_relationships", force: :cascade do |t|
+    t.integer "group_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -85,6 +89,27 @@ ActiveRecord::Schema.define(version: 2019_01_31_070810) do
     t.integer "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "links", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title", null: false
+    t.string "url"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "group_id"
+    t.index ["user_id"], name: "index_links_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.bigint "conversation_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -124,6 +149,16 @@ ActiveRecord::Schema.define(version: 2019_01_31_070810) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "saves", force: :cascade do |t|
+    t.integer "saver_id"
+    t.integer "saved_note_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["saved_note_id"], name: "index_saves_on_saved_note_id"
+    t.index ["saver_id", "saved_note_id"], name: "index_saves_on_saver_id_and_saved_note_id", unique: true
+    t.index ["saver_id"], name: "index_saves_on_saver_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -197,8 +232,6 @@ ActiveRecord::Schema.define(version: 2019_01_31_070810) do
     t.float "longitude"
   end
 
-  add_foreign_key "favorites", "groups"
-  add_foreign_key "favorites", "users"
   add_foreign_key "votes", "notes"
   add_foreign_key "votes", "users"
 end

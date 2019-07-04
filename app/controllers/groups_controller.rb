@@ -20,6 +20,7 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.user = current_user
     if @group.save
+      current_user.join!(@group)
       flash[:info] = "Grupo creado exitosamente"
       redirect_to group_path(@group)
     else
@@ -50,6 +51,28 @@ class GroupsController < ApplicationController
       flash[:info] = "Algo salio mal, intentalo de nuevo"
       render :show 
     end
+  end
+
+  def join
+    @group = Group.find(params[:id])
+    if !current_user.is_member_of?(@group)
+      current_user.join!(@group)
+      flash[:info] = "Te uniste al grupo con éxito"
+    else
+      flash[:info] = "¡Ya eres miembro de este grupo!"
+    end
+    redirect_to group_path(@group)
+  end
+
+  def quit
+    @group = Group.find(params[:id])
+    if current_user.is_member_of?(@group)
+      current_user.quit!(@group)
+      flash[:info] = "Abandonaste el grupo"
+    else
+      flash[:info] = "¡No eres miembro de este grupo!"
+    end
+    redirect_to group_path(@group)
   end
   
   private 

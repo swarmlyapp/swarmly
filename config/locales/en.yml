@@ -67,3 +67,14 @@ en:
       almost_x_years:
         one:   "1 año" # default was: "almost 1 year"
         other: "%{count} años" # default was: "almost %{count} years"
+en:
+  activerecord:
+    attributes:
+      user:
+        username: "Nombre de usuario"
+    errors:
+      models:
+        user:
+          attributes:
+            username:
+              invalid: "solo puede contener letras, números y guión bajo"

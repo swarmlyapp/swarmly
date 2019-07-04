@@ -7,24 +7,24 @@
 #    admin: true) 
 #leonel.skip_confirmation!
 #leonel.save!
-#roy = User.new(
-#    username: "royvargas", 
-#    fullname: "Roy Vargas", 
-#    email: "royvargas55@gmail.com", 
-#    password: "royvargas", 
-#    password_confirmation: "royvargas", 
-#    admin: true) 
-#roy.skip_confirmation!
-#roy.save!
-swarmly = User.new(
-    username: "swarmly", 
-    fullname: "Swarmly", 
-    email: "contacto@swarmly.app", 
-    password: "swarmlyuser", 
-    password_confirmation: "swarmlyuser", 
+roy = User.new(
+    username: "royvargas", 
+    fullname: "Roy Vargas", 
+    email: "royvargas55@gmail.com", 
+    password: "royvargas", 
+    password_confirmation: "royvargas", 
     admin: true) 
-swarmly.skip_confirmation!
-swarmly.save!
+roy.skip_confirmation!
+roy.save!
+#swarmly = User.new(
+#    username: "swarmly", 
+#    fullname: "Swarmly", 
+#    email: "contacto@swarmly.app", 
+#    password: "swarmlyuser", 
+#    password_confirmation: "swarmlyuser", 
+#    admin: true) 
+#swarmly.skip_confirmation!
+#swarmly.save!
 #Category.create( name: "Education", categoriespic: Rails.root.join("app/assets/images/education.png").open ) 
 #Category.create( name: "Science & tech", categoriespic: Rails.root.join("app/assets/images/science&tech.png").open ) 
 #Category.create( name: "Art", categoriespic: Rails.root.join("app/assets/images/art.png").open ) 

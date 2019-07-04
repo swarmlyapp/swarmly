@@ -3,7 +3,8 @@ class User < ApplicationRecord
   :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
   has_many :groups, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :active_saves, class_name: "Save", foreign_key: "saver_id", dependent: :destroy
+  has_many :saving, through: :active_saves, source: :saved_note
   has_many :notifications, dependent: :destroy
   has_many :clips, dependent: :destroy
   has_many :notes, dependent: :destroy
@@ -18,12 +19,16 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :likes
+  has_many :group_relationships
+  has_many :participated_groups, :through => :group_relationships, :source => :group
+  
   mount_uploader :userspic, UserspicUploader
 
 
   validates :fullname,  presence: true, length: { maximum: 50}
   validates :username,  presence: true, length: { maximum: 20}, uniqueness: true
-  validates :username, format: { with:  /\A[a-zA-Z0-9]*\z/ }
+  #Username only allow letters,numbers and underscore
+  validates :username, format: { with: /\A[\w\_]+\z/ }
 
   validates :email, presence: true, length: { maximum: 255 },
                                     uniqueness: { case_sensitive: false }
@@ -57,16 +62,18 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
-  def favorite_for(group)
-    favorites.where(group: group).first
+  def saved(note)
+    active_saves.create(saved_note_id: note.id)
   end
 
-  def favorited_groups
-    groups = []
-    favorites.each do |favorite|
-      groups << favorite.group
-    end                                           
-    groups
+  #Removes a user from the save list for note
+  def unsaved(note)
+    active_saves.find_by(saved_note_id: note.id).destroy
+  end
+
+  #Returns true if the current user is saving the event
+  def saving?(note)
+    saving.include?(note)
   end
   
   def feed
@@ -75,25 +82,14 @@ class User < ApplicationRecord
     Group.where("user_id IN (#{following_ids_subselect})
                      OR user_id = :user_id", user_id: id)
   end
-  
-  def self.create_from_facebook_data(facebook_data)
-    where(provider: facebook_data.provider, uid: facebook_data.uid).first_or_create do | user |
-      user.email =    facebook_data.info.email
-      user.fullname = facebook_data.info.name
-      user.username = "u/#{facebook_data.info.name.split.map{|i| i[0,3].downcase}.join}"
-      user.password = Devise.friendly_token[0, 20]
-      user.remote_avatar = facebook_data.info.image
-      user.skip_confirmation!
-    end
-  end
 
-  def self.create_from_google_data(google_data)
-    where(provider: google_data.provider, uid: google_data.uid).first_or_create do | user |
-      user.email =    google_data.info.email
-      user.fullname = google_data.info.name
-      user.username = "u/#{google_data.info.name.split.map{|i| i[0,3].downcase}.join}"
+  def self.create_from_provider_data(provider_data)
+    where(provider: provider_data.provider, uid: provider_data.uid).first_or_create do | user |
+      user.email = provider_data.info.email
+      user.fullname = provider_data.info.name
+      user.username = "user#{provider_data.uid}"
       user.password = Devise.friendly_token[0, 20]
-      user.remote_avatar = google_data.info.image
+      user.remote_avatar = provider_data.info.image
       user.skip_confirmation!
     end
   end
@@ -111,5 +107,17 @@ class User < ApplicationRecord
     if userspic.size > 5.megabytes
         errors.add("Foto debe ser menor que 5MB")
     end
+  end
+
+  def join!(group)
+    participated_groups << group
+  end
+
+  def quit!(group)
+    participated_groups.delete(group)
+  end
+  
+  def is_member_of?(group)
+    participated_groups.include?(group)
   end
 end

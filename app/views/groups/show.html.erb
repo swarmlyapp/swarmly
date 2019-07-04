@@ -1,27 +1,31 @@
-      <% provide(:title, "Comentarios de grupo #{@group.name}") %>
-      <div id="toolbar" class="primary-color z-depth-1">
+    <% provide(:title, "Comentarios de grupo #{@group.name}") %>
+    <div id="toolbar" class="primary-color z-depth-1">
       <div class="logo-container">
           <%= link_to root_path do %>
             <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
           <% end %>
       </div>
+      <div class="toolbar-item">
         <% if logged_in? %>
-        <div class="toolbar-item">
-        <%= link_to group_clips_path(@group) do %>
-          <i class="ion-android-folder secondary-text"></i>
-        <% end %>
-        <% if current_user %>
-          <%= render partial: "favorites/favorite", locals: {group: @group} %>
-        <% end %>
-        </div> 
-        <% else %> 
-          <div class="toolbar-item">
-            <%= link_to new_user_session_path do %>
-                <i class="ion-android-open"></i>
+          <% if current_user.is_member_of?(@group) %>
+            <%= link_to quit_group_path(@group),method: :post do %>
+              <img src="https://res.cloudinary.com/swarmly/image/upload/v1557984768/iconrest.svg" style="width:30.63px;height:34.67px;margin-right:20px" alt="swarmly">
             <% end %>
-        </div> 
-        <% end %>        
-      </div> 
+          <% else %>
+            <%= link_to join_group_path(@group),method: :post do  %>
+              <img src="https://res.cloudinary.com/swarmly/image/upload/v1557990449/iconsum.svg" style="width:30.63px;height:34.67px;margin-right:20px" alt="swarmly">
+            <% end %>
+          <% end %>
+          <%= link_to group_clips_path(@group) do %>
+            <i class="ion-android-folder secondary-text"></i>
+          <% end %>
+        <% else %> 
+          <%= link_to new_user_session_path do %>
+              <i class="ion-android-open"></i>
+          <% end %>
+        <% end %>
+      </div>        
+    </div> 
     <% if logged_in? %>
       <div class="page-chat">
         <%= form_for([@group, @comment], remote: true, :html => {class: "regular", role: "form"}) do |f| %>
@@ -29,8 +33,8 @@
             <div class="write-field">
               <%= f.text_field :description, placeholder: "Enviar mensaje..." %>
             </div>
-            <%= button_tag(type: "submit", class: "send-button secondary-color") do %>
-              <i class="ion-android-send send-message accent-text"></i>
+            <%= button_tag(type: "submit", class: "send-button accent-color") do %>
+              <i class="ion-android-send send-message white-text"></i>
             <% end %>
         </div>
     <% end %>

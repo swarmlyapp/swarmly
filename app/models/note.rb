@@ -1,6 +1,8 @@
 class Note < ApplicationRecord
 	belongs_to :group
 	belongs_to :user
+  has_many :passive_saves, class_name: "Save", foreign_key: "saved_note_id", dependent: :destroy
+  has_many :savers, through: :passive_saves, source: :saver
 	has_many :taggings, dependent: :destroy
 	has_many :tags, through: :taggings
 	has_many :votes, dependent: :destroy
@@ -9,7 +11,6 @@ class Note < ApplicationRecord
 	validates :body , :group_id, presence: true 
 	mount_uploader :notespic, NotespicUploader
   delegate :userspic, to: :user, prefix: true  
-	has_many :attachments, :dependent => :destroy
 	validates :tag_list, length: {maximum: 230}
   after_commit :create_notifications, on: :create
 	default_scope {order('rank DESC')}

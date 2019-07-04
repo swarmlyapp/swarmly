@@ -1,25 +1,9 @@
 <% provide(:title, 'Inicio') %>
+<%= render 'layouts/navigation' %>  
 <% if logged_in? %>
-    <%= render 'layouts/navigation' %>  
-    <nav class="bottom-nav">
-      <%= link_to root_path, :class => "bottom-nav__action bottom-nav__action--active" do %>
-        <i class="ion-home bottom-icon"></i>
-        <span class="bottom-nav__label">Inicio</span>
-      <% end %> 
-
-      <%= link_to categories_path, :class => "bottom-nav__action bottom-nav__action" do %>
-        <i class="ion-android-apps bottom-icon"></i>
-        <span class="bottom-nav__label">Categorías</span>
-      <% end %>
-
-      <%= link_to groups_path, :class => "bottom-nav__action bottom-nav__action" do %>
-        <i class="ion-android-compass bottom-icon"></i>
-        <span class="bottom-nav__label">Explorar</span>
-      <% end %>
-    </nav>
+    <%= render 'shared/bottom_nav' %>
     <%= render 'shared/feed' %>
 <% else %>
-<%= render 'layouts/navigation' %>
       <div class="animated fadein regular" style="padding-top: 50px">
         <div class="section bg-5 center" style="padding: 75px 20px">
             <div class="container">

@@ -10,11 +10,17 @@ class ClipsController < ApplicationController
 
   def new
     @clip = Clip.new(group_id: @group.id, user_id: current_user.id)
+    @attachment = @clip.attachments.build
   end
 
   def create
     @clip = Clip.new(clip_params)
     if @clip.save
+      if params[:attachments]
+        params[:attachments].each do |attachment|
+          @clip.attachments.create(attachment: attachment)
+        end
+      end
       flash[:info] = "Clip creado exitosamente"
       redirect_to clip_path(@clip)
     else      
@@ -33,8 +39,13 @@ class ClipsController < ApplicationController
 
   def update
     if @clip.update(clip_params)
-      flash[:info] = "Clip editado exitosamente"
-      redirect_to clip_path(@clip)
+      if params[:attachments]
+        params[:attachments].each do |attachment|
+          @clip.attachments.create(attachment: attachment)
+        end
+      end
+        flash[:info] = "Clip editado exitosamente"
+        redirect_to clip_path(@clip)
     else 
       flash[:info] = "Algo salio mal, intentalo de nuevo"
       render :edit
@@ -65,7 +76,7 @@ class ClipsController < ApplicationController
   end
 
   def clip_params
-    params.require(:clip).permit(:caption, :clipspic, :user_id, :group_id)
+    params.require(:clip).permit(:caption, :user_id, :group_id, attachments_attributes: [:attachment, :clip_id])
   end
 
   def require_same_user

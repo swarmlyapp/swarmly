@@ -1,5 +1,9 @@
         <div class="card fullscreen">
           <% if logged_in? && (current_user == group.user || current_user.admin?) %>
+          <div class="group-actions" style="left:5px">
+            <i class="ion-android-people group-action" style="margin-left:10px"></i>  
+            <span class="group-action"><%= group.member.count %></i>  
+          </div>
           <div class="group-actions">
             <%= link_to edit_group_path(group) do %>
                 <i class="ion-android-create group-action"></i>  

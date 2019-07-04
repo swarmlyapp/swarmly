@@ -1,32 +1,5 @@
-      <% provide(:title, "Clip #{@clip.caption}") %>
-      <div id="toolbar" class="primary-color z-depth-1">
-      <div class="logo-container">
-          <%= link_to root_path do %>
-            <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
-          <% end %>
-      </div>
-        <% if logged_in? %>
-        <div class="toolbar-item">
-            <%= link_to new_group_clip_path(@group) do %>
-                <i class="ion-android-add-circle"></i>
-            <% end %>
-
-            <% if current_user.userspic.present? %>
-                    <%= link_to image_tag(current_user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(current_user) %>
-                <% elsif current_user.remote_avatar.present? %>
-                    <%= link_to image_tag(current_user.remote_avatar, class: 'media-left avatar small'), user_path(current_user) %>
-                <% else %>
-                    <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(current_user) %>
-            <% end %>
-        </div> 
-        <% else %> 
-          <div class="toolbar-item">
-            <%= link_to new_user_session_path do %>
-                <i class="ion-android-open"></i>
-            <% end %>
-        </div> 
-        <% end %>        
-      </div> 
+<% provide(:title, "Clip #{@clip.caption}") %>
+<%= render 'shared/folder_toolbar' %>
       <div class="container">
         <div class="row">
           <div class="col s12 m8 offset-m2">
@@ -66,16 +39,4 @@
           </div>
         </div>
       </div>
-    <nav class="no-labels-nav">
-      <%= link_to group_clips_path(@group), :class => "no-labels-nav__action--active" do %>
-        <i class="ion-android-image no-labels-nav__icon"></i>
-      <% end %> 
-
-      <%= link_to group_notes_path(@group), :class => "no-labels-nav__action" do %>
-        <i class="ion-android-document no-labels-nav__icon"></i>
-      <% end %>
-
-      <%= link_to group_zones_path(@group), :class => "no-labels-nav__action" do %>
-        <i class="ion-android-map no-labels-nav__icon"></i>
-      <% end %>
-    </nav>
+<%= render 'shared/folder_nav' %>

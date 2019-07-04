@@ -24,7 +24,7 @@
                         </div>
                         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                           <%= f.email_field :email, class: 'form-control', placeholder: "Email" %>
-                          <%= f.password_field :password, class: 'form-control', placeholder: "Password" %>
+                          <%= f.password_field :password, class: 'form-control', placeholder: "Contraseña" %>
                           <div class="form-button">
                             <%= button_tag(type: "submit", class: "ibtn") do %>
                                 Entrar
@@ -33,15 +33,17 @@
                           </div>
                             <%= f.check_box :remember_me, class: "no-display"%>
                         <% end %>
-                        <div class="other-links">
-                            <span>O ingresa con</span>
-                            <%= link_to user_facebook_omniauth_authorize_path do %>
-                                <i class="ion-social-facebook"></i>
-                            <% end %>                            
-                            <%= link_to user_google_oauth2_omniauth_authorize_path do %>
-                                <i class="ion-social-google"></i>
-                            <% end %>
-                        </div>
+                        <% if devise_mapping.omniauthable? %>
+                            <div class="other-links">
+                                <span>O ingresa con</span>
+                                <% resource_class.omniauth_providers.each do | provider | %>
+                                    <% _provider = provider.to_s.split('_').first %>
+                                    <%= link_to(omniauth_authorize_path(resource_name, provider)) do %>
+                                        <i class="ion-social-<%= _provider %>"></i>
+                                    <% end %>
+                                <% end %>            
+                            </div>
+                        <% end %>
                     </div>
                 </div>
             </div>

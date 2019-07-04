@@ -1,21 +1,6 @@
 <% provide(:title, 'Seguidores/siguiendo') %>
 <%= render 'layouts/navigation' %>
-    <nav class="bottom-nav">
-      <%= link_to root_path, :class => "bottom-nav__action bottom-nav__action" do %>
-        <i class="ion-home bottom-icon"></i>
-        <span class="bottom-nav__label">Inicio</span>
-      <% end %> 
-
-      <%= link_to categories_path, :class => "bottom-nav__action bottom-nav__action" do %>
-        <i class="ion-android-apps bottom-icon"></i>
-        <span class="bottom-nav__label">Categorías</span>
-      <% end %>
-
-      <%= link_to users_path, :class => "bottom-nav__action bottom-nav__action" do %>
-        <i class="ion-android-compass bottom-icon"></i>
-        <span class="bottom-nav__label">Explorar</span>
-      <% end %>
-    </nav>
+<%= render 'shared/bottom_nav' %>
 <div class="profile animated fadeinup">
             <div class="container">
               <div class="row">

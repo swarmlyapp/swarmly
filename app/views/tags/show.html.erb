@@ -1,25 +1,9 @@
       <% provide(:title, "Tag #{@tag.name}") %>
       <div id="tagbar" class="primary-color z-depth-1">
-      <div class="logo-container">
-          <%= link_to root_path do %>
-            <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1547543630/logo.svg" alt="swarmly">
-          <% end %>
-      </div>
         <% if logged_in? %>
           <div class="tagbar">
               <i class="ion-pound tag-element"></i>
               <span><%= @tag.name %></span>
-          </div>
-          <div class ="tag-avatar-container">
-            <div class="tag-avatar">
-              <% if current_user.userspic.present? %>
-                <%= link_to image_tag(current_user.userspic.url(:picture_display), class: 'avatar-tag'), user_path(current_user) %>
-              <% elsif current_user.remote_avatar.present? %>
-                <%= link_to image_tag(current_user.remote_avatar, class: 'avatar-tag'), user_path(current_user) %>
-              <% else %>
-                <%= link_to image_tag("noprofile.png", class: 'avatar-tag'), user_path(current_user) %>
-              <% end %> 
-            </div>
           </div>
         <% else %> 
           <div class="toolbar-item">
@@ -29,23 +13,7 @@
         </div> 
         <% end %>        
       </div>
-      <nav class="bottom-nav">
-        <%= link_to root_path, :class => "bottom-nav__action bottom-nav__action" do %>
-          <i class="ion-home bottom-icon"></i>
-          <span class="bottom-nav__label">Inicio</span>
-        <% end %> 
-
-        <%= link_to categories_path, :class => "bottom-nav__action bottom-nav__action" do %>
-          <i class="ion-android-apps bottom-icon"></i>
-          <span class="bottom-nav__label">Categorías</span>
-        <% end %>
-
-        <%= link_to groups_path, :class => "bottom-nav__action bottom-nav__action--active" do %>
-          <i class="ion-android-compass bottom-icon"></i>
-          <span class="bottom-nav__label">Explorar</span>
-        <% end %>
-      </nav> 
-
+<%= render 'shared/bottom_nav' %>
     <% if @tag_notes.empty? %>
           <div class="page fullscreen valign-wrapper accent-color animated fadeinup">
             <div class="container">

@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @groups = @user.groups.all
+    @user = User.find(params[:id])
+    @groups = @user.participated_groups.includes(:user)
     #redirect_to root_url and return unless @user.activated?
   end
 
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if @user.destroy
+    if @user.delete
       flash[:info] = "Usuario eliminado"
       redirect_to users_url
     end
