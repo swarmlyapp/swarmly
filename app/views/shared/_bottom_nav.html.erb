@@ -1,0 +1,22 @@
+  <nav class="bottom-nav">
+    <a class="bottom-nav__action <% if params[:controller] == 'static_pages' && %w(home).include?(params[:action]) %>bottom-nav__action--active<% end %>" href="/">
+      <svg class="bottom-nav__icon m-i" width="24" height="18" viewBox="0 0 24 18"><path class="<% if params[:controller] == 'static_pages' && %w(home).include?(params[:action]) %>ac<% else %>in<% end %>" d="M10,21V14.647h4V21h5V12.529h3L12,3,2,12.529H5V21Z" transform="translate(0 -3)"></path></svg>
+      <span class="bottom-nav__label">Inicio</span>
+    </a>
+
+    <a class="bottom-nav__action <% if current_page?(notifications_path) %>bottom-nav__action--active<% end %>" href="/notifications">
+      <svg class="bottom-nav__icon m-n" width="24" height="20" viewBox="0 0 24 20"><path class="<% if current_page?(notifications_path) %>ac<% else %>in<% end %>" d="M12.2,22.5a2.057,2.057,0,0,0,2.051-2.051h-4.1A2.051,2.051,0,0,0,12.2,22.5Zm6.153-6.154V11.218c0-3.149-1.682-5.785-4.615-6.482v-.7a1.538,1.538,0,1,0-3.077,0v.7c-2.943.7-4.615,3.323-4.615,6.482v5.128L4,18.4v1.026H20.409V18.4Z" transform="translate(0 -2.5)"/>
+      <circle cx="5" cy="5" r="5" transform="translate(11 3)" fill="#0facf3"></circle>
+      </svg> 
+      <span class="bottom-nav__label">Notificaciones</span>
+    </a>
+
+    <a class="bottom-nav__action <% if params[:controller] == 'conversations' && %w(index).include?(params[:action]) %>bottom-nav__action--active<% end %>" href="/conversations">
+      <svg class="bottom-nav__icon m-m" width="24" height="17" viewBox="0 0 24 17"><path class="<% if params[:controller] == 'conversations' && %w(index).include?(params[:action]) %>ac<% else %>in<% end %>" d="M20,4H4A2,2,0,0,0,2.01,6L2,18a2.006,2.006,0,0,0,2,2H20a2.006,2.006,0,0,0,2-2V6A2.006,2.006,0,0,0,20,4Zm0,4-8,5L4,8V6l8,5,8-5Z" transform="translate(0 -3)"/>
+      <circle cx="5" cy="5" r="5" transform="translate(13)" fill="#0facf3" style="
+          display: none;
+      "></circle>
+      </svg>
+      <span class="bottom-nav__label">Mensajes</span>
+    </a>
+  </nav>

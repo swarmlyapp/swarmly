@@ -31,7 +31,7 @@
         <%= form_for([@group, @comment], remote: true, :html => {class: "regular", role: "form"}) do |f| %>
           <div class= "write-message z-depth-1">
             <div class="write-field">
-              <%= f.text_field :description, placeholder: "Enviar mensaje..." %>
+              <%= f.text_field :description, placeholder: "Enviar mensaje...", :autocomplete => :off  %>
             </div>
             <%= button_tag(type: "submit", class: "send-button accent-color") do %>
               <i class="ion-android-send send-message white-text"></i>

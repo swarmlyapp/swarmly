@@ -1,0 +1,6 @@
+<%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+  <%= hidden_field_tag :followed_id, @category.id %>
+  <%= button_tag(type: "submit", class: "waves-effect waves-light btn") do %>
+    Seguir
+  <% end %>
+<% end %>

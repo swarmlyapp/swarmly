@@ -2,25 +2,7 @@
     <%= render 'layouts/navigation' %>
     <%= render 'shared/bottom_nav' %>  
     <% if @groups.empty? %>
-          <div class="page fullscreen valign-wrapper accent-color animated fadeinup">
-            <div class="container">
-              <div class="row">
-                <div class="col s12 m8 offset-m2">
-                  <div class="valign">
-                    <div class="center-align">
-                      <h1 class="title big">¯\_(ツ)_/¯</h1>
-                    </div>
-                    <div class="center-align p-20">
-                      <div class="card-panel">
-                        <h2>No hay grupos todavía!</h2>
-                        <span>Sé el primero en crear uno.</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <%= render 'shared/not_found', name: "grupos" %>
       <% else %>
           <div class="page animated fadeinup">
             <div class="container">

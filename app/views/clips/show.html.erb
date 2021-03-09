@@ -1,42 +1,48 @@
-<% provide(:title, "Clip #{@clip.caption}") %>
+<% provide(:title, 'Todos los clips') %>
 <%= render 'shared/folder_toolbar' %>
-      <div class="container">
-        <div class="row">
-          <div class="col s12 m8 offset-m2">
-            <div class="card clip">
-              <div class="animated fadein">
-                <%= image_tag(@clip.clipspic.url) %>
-              </div>
-              <div class="p-20 animated fadeinup delay-1">
-                <h2><%= @clip.caption %></h2>
-                <p class="regular">Creado hace <%= time_ago_in_words(@clip.created_at) %></p>
-              </div>
-              <div class="media-share-author media-author animated fadeinright delay-2">
-                <% if @clip.user.userspic.present? %>
-                    <%= link_to image_tag(@clip.user_userspic.url(:picture_display), class: 'avatar'), user_path(@clip.user.id) %>
-                  <% elsif @clip.user.remote_avatar.present? %>
-                    <%= link_to image_tag(@clip.user.remote_avatar, class: 'avatar'), user_path(@clip.user_id) %>
-                  <% else %>
-                    <%= link_to image_tag("noprofile.png", class: 'avatar'), user_path(@clip.user.id) %>
-                <% end %>
-                <span><%= link_to @clip.user.username.capitalize, user_path(@clip.user.id) %>
-                <% if @clip.user.admin? %>
-                  <i class="ion-checkmark-circled"></i>  
-                <% end %>
-                </span>
-                <% if logged_in? && (@clip.user==current_user || current_user.admin?) %>
-                <div class="media-social-share">
-                  <%= link_to edit_clip_path(@clip) do %>
-                    <i class="ion-android-create"></i>  
-                  <% end %>
-                  <%= link_to clip_path(@clip), method: :delete, data:{confirm: "Estás seguro que quieres eliminar este clip?"} do %>
-                    <i class="ion-android-delete"></i>  
-                  <% end %>
-                </div>
-              <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 <%= render 'shared/folder_nav' %>
+<div class="grid">
+	<div class="container">
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+				<div class="c-clip z-depth-1 m-t-40 animated fadeinup delay-2" style="margin:5px">
+					<div class="c-widget">
+						<div class="c-widget-figure">
+							<% if @clip.user.userspic.present? %>
+								<%= link_to image_tag(@clip.user.userspic.url(:picture_display), class: 'avatar', style: 'width:48px!important;height:48px!important'), user_path(@clip.user_id) %>
+							<% elsif @clip.user.remote_avatar.present? %>
+								<%= link_to image_tag(@clip.user.remote_avatar, class: 'avatar', style: 'width:48px!important;height:48px!important'), user_path(@clip.user_id) %>
+							<% else %>
+								<%= link_to image_tag("noprofile.png", class: 'avatar', style: 'width:48px!important;height:48px!important'), user_path(@clip.user_id) %>
+							<% end %>
+						</div>
+						<div style="flex:1">
+							<p style="font-size:20px;">
+							<%= link_to @clip.caption, clip_path(@clip) %>
+							</p>
+							<p class="secondary-text" style="font-weight: 400;">
+							Por<span style="font-weight: 500;"> <%= link_to @clip.user.username.capitalize, user_path(@clip.user.id) %></span> hace <%= time_ago_in_words(@clip.created_at) %></p>
+						</div>
+					</div>
+          		</div>
+<div class=" follow-button regular secondary-color" style="float:left;width:35%;margin:15px;font-size:15px;">
+Editar
+</div>
+<div class=" follow-button regular secondary-color" style="float:right;width:35%;margin:15px;font-size:15px;">
+Borrar
+</div>
+				<% @clip.attachments.each do |attachment| %>
+					<div class="grid-item">
+						<div class="card">
+							<div class="card-image"></div>
+							<div class="card-content">
+								<h4 style="font-weight:500"><%= link_to "Descargar", attachment.attachment_url %></h4>
+							</div>
+						</div>
+					</div>
+				<% end %>
+                <div class="fake-clip"></div>
+            </div>
+        </div>
+    </div>
+</div>

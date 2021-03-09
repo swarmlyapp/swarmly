@@ -63,19 +63,6 @@ function onFetch(event) {
   );
 }
 
-function onFallback(event){
-  event.respondWith(
-    const promiseRespone= new Promise((res, rej)=>{
-      fetch(ev.request).then(response=> {
-        if (response.status = 404 && ev.request.destination == "image")
-          return fetch("https://res.cloudinary.com/swarmly/image/upload/v1560995138/logo_s.svg").then(res).catch(rej);
-        res(response);
-      }).catch(rej);
-    });
-  )
-}
-
-
 self.addEventListener('install', onInstall);
 self.addEventListener('activate', onActivate);
-self.addEventListener('fetch', onFetch, onFallback);
+self.addEventListener('fetch', onFetch);

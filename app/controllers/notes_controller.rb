@@ -37,6 +37,7 @@ class NotesController < ApplicationController
     def create
       @note = Note.new(note_params)
       if @note.save
+        create_notification("note", @note)
         flash[:info] = "Nota creada exitosamente"
         redirect_to note_path(@note)
       else

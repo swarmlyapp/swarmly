@@ -1,0 +1,14 @@
+<nav class="bnav primary-color z-depth-1" style="z-index: 2;position: fixed;/* bottom: 0; */left: 0;height: 56px;width: 100%;/* font-family: Roboto; */font-size: 13px;color: #011638;/* background: ghostwhite; *//* border-top: 1px solid gray; *//* box-shadow: 0 0 2px rgba(0, 0, 0, 0.25); *//* text-align: center; */">
+<div class="container">
+      <div class="row">
+<div class="col s12 m8 offset-m2">
+
+  <div class="bnav__item" style="position: relative;/* padding-left: 20px; */float: left;padding: 8px;outline: none;display: block;font-size: 1.5em;/* font-weight: 400; */">
+    <i class="ion-android-close tag-element"></i>
+        <%= name %>
+  </div>
+  
+  <div class="bnav__item bnav__item--right" style="float: right;outline: none;display: block;position: relative;padding: 15px;font-size: 16px;/* font-weight: 400; */color: #3578E5;">
+      <%= (link_to 'CREAR', path) if local_assigns[:path] %>
+  </div>
+</div></div></div></nav>

@@ -1,34 +1,45 @@
     <% provide(:title, "Categoría #{@category.name}") %>  
     <%= render 'layouts/navigation' %>  
-    <%= render 'shared/bottom_nav' %>    
+    <%= render 'shared/bottom_nav' %>  
+    <style>
+    .banner-header{
+      width: 100%;
+      height: 220px;
+      background: url(<%= @category.categoriespic.url %>) no-repeat center / cover !important;
+    }
+		.animated h1{
+			font-weight: 500;
+		}
+    </style>  
     <% if @category.groups.empty? %>
-          <div class="page fullscreen valign-wrapper accent-color animated fadeinup">
-            <div class="container">
-              <div class="row">
-                <div class="col s12 m8 offset-m2">
-                  <div class="valign">
-                    <div class="center-align">
-                      <h1 class="title big">¯\_(ツ)_/¯</h1>
-                    </div>
-                    <div class="center-align p-20">
-                      <div class="card-panel animated fadein delay-2">
-                        <h2>No hay groupos todavía!</h2>
-                        <span>Sé el primero en crear uno acá.</span>
-                      </div>
-                    </div>
-                  </div>
+        <%= render 'shared/not_found', name: "grupos" %>
+    <% else %>
+    <div class="page animated fadeinup">
+      <div class="card fullscreen banner-header" >
+        <div class="opacity-overlay"></div>
+        <div class="bottom p-20">
+          <div class="container">
+            <div class="row">
+              <div class="col s12">
+                <div class="animated fadeinup delay-2">
+                  <h1 class="white-text"><%= @category.name %>		
+                  <%= link_to edit_category_path(@category) do %>
+                     · <i class="ion-android-create"></i>  
+                  <% end %>        
+                  </h1>
+                  <%= render 'categories/follow_form' %>
                 </div>
               </div>
             </div>
-          </div> 
-      <% else %>
-          <div class="page animated fadeinup">
-            <div class="container">
-              <div class="row">
-                <div class="col s12 m6 offset-m3">
-                  <%= render @category_groups %>
-                </div>
-              </div>
-            </div>
-          </div>    
-      <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6 offset-m3">
+            <%= render @category_groups %>
+          </div>
+        </div>
+      </div>
+		</div>    
+    <% end %>

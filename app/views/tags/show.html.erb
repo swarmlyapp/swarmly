@@ -1,47 +1,44 @@
-      <% provide(:title, "Tag #{@tag.name}") %>
-      <div id="tagbar" class="primary-color z-depth-1">
-        <% if logged_in? %>
-          <div class="tagbar">
-              <i class="ion-pound tag-element"></i>
-              <span><%= @tag.name %></span>
-          </div>
-        <% else %> 
-          <div class="toolbar-item">
-            <%= link_to new_user_session_path do %>
-                <i class="ion-android-open"></i>
-            <% end %>
-        </div> 
-        <% end %>        
-      </div>
-<%= render 'shared/bottom_nav' %>
-    <% if @tag_notes.empty? %>
-          <div class="page fullscreen valign-wrapper accent-color animated fadeinup">
-            <div class="container">
-              <div class="row">
-                <div class="col s12 m8 offset-m2">
-                  <div class="valign">
-                    <div class="center-align">
-                      <h1 class="title big">¯\_(ツ)_/¯</h1>
-                    </div>
-                    <div class="center-align p-20">
-                      <div class="card-panel animated fadein delay-2">
-                        <h2>No hay tags todavia!</h2>
-                        <span>Crea una nueva con este Tag.</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> 
-      <% else %>
-          <div class="page animated fadeinup">
-            <div class="container">
-              <div class="row">
-                <div class="col s12 m8 offset-m2">
-                  <%= render @tag_notes %>
-                </div>
-              </div>
-            </div>
-          </div>
-    <% end %>
+		<% provide(:title, "Tag #{@tag.name}") %>
+		<%= render 'layouts/navigation' %>  
+		<%= render 'shared/bottom_nav' %>
+    <style>
+    .banner-header{
+      width: 100%;
+      height: 185px;
+			background-color: #011638;
+			position: relative;
+    }
+		.animated h1{
+			font-weight: 500;
+		}
+    </style> 
+		<% if @tag_notes.empty? %>
+			<%= render 'shared/not_found', name: "notas" %>
+		<% else %>
+			<div class="page animated fadeinup">
+				<div class="z-depth-1 banner-header" >
+					<div class="bottom p-20">
+						<div class="container">
+							<div class="row">
+								<div class="col s12">
+									<div class="animated fadeinup delay-2">
+										<h1 class="white-text"><i class="ion-pound tag-element"></i><%= @tag.name %>
+										<%= link_to tag_path(@tag), method: :delete do %>
+											 · <i class="ion-trash-b"></i>  
+										<% end %> 
+										</h1>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col s12 m8 offset-m2">
+							<%= render @tag_notes %>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>

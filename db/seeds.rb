@@ -1,12 +1,12 @@
-#leonel = User.new(
-#    username: "leonelvega", 
-#    fullname: "Leonel Vega", 
-#    email: "leonelvegavargas@hotmail.com", 
-#    password: "leonelvega", 
-#    password_confirmation: "leonelvega", 
-#    admin: true) 
-#leonel.skip_confirmation!
-#leonel.save!
+leonel = User.new(
+    username: "leonelvega", 
+    fullname: "Leonel Vega", 
+    email: "leonelvegavargas@hotmail.com", 
+    password: "leonelvega", 
+    password_confirmation: "leonelvega", 
+    admin: true) 
+leonel.skip_confirmation!
+leonel.save!
 roy = User.new(
     username: "royvargas", 
     fullname: "Roy Vargas", 

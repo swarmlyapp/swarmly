@@ -1,0 +1,38 @@
+        <div id="toolbar" class="primary-color z-depth-1" style="height:50px;">
+        <div class="logo-container">
+            <%= link_to root_path do %>
+              <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1561357078/folderalts.svg" alt="swarmly">
+            <% end %>
+        </div>
+          <% if logged_in? %>
+          <div class="toolbar-item">
+              <% if params[:controller] == 'clips' && %w(index new edit show).include?(params[:action]) %>
+              <a href="clips/new">
+                <i class="ion-android-add-circle"></i>
+              </a>
+              <% elsif params[:controller] == 'notes' && %w(index new edit show).include?(params[:action]) %>
+              <a href="notes/new">
+                <i class="ion-android-add-circle"></i>
+              </a>              
+              <% elsif params[:controller] == 'zones' && %w(index new edit show).include?(params[:action]) %>
+              <a href="zones/new">
+                <i class="ion-android-add-circle"></i>
+              </a>
+              <% elsif params[:controller] == 'links' && %w(index new edit show).include?(params[:action]) %>
+              <a href="links/new">
+                <i class="ion-android-add-circle"></i>
+              </a>
+              <% end %>
+
+              <%= link_to edit_group_path(@group) do %>
+                  <i class="ion-android-settings" style="margin-right: 15px;"></i>
+              <% end %>
+          </div> 
+          <% else %> 
+            <div class="toolbar-item">
+              <%= link_to new_user_session_path do %>
+                  <i class="ion-android-open"></i>
+              <% end %>
+            </div> 
+          <% end %>        
+        </div>

@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-  
+
   def home
     if logged_in?
       @feed_items = current_user.feed.all
@@ -14,13 +14,16 @@ class StaticPagesController < ApplicationController
     respond_to do |format|
       format.json 
       render :partial => "static_pages/assetlinks.json"
-  end
+    end
   end
 
   def lock
   end
   
-  def maps
+  def explore
+    @groups = Group.order(created_at: :desc).last(2)
+    @categories = Category.order(created_at: :desc).last(3)
+    @tags = Tag.order(created_at: :desc).last(5)
   end
 
   def login
@@ -29,4 +32,8 @@ class StaticPagesController < ApplicationController
       redirect_to root_path
     end
   end
+  # private
+  #   def set_category
+  #      @category = Category.find(params[:id]) 
+  #   end
 end

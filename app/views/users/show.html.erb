@@ -26,10 +26,9 @@
                         <% end %>
                         </p>
                         <% if @user==current_user %>
-                            <div class="follow-button regular"><%= link_to "Editar perfil", edit_user_path(current_user) %></div>
-                        <% else %>
-                          <%= render 'follow_form' if logged_in? %>
+                            <div class="waves-effect waves-light btn"><%= link_to "Editar perfil", edit_user_path(current_user) %></div>
                         <% end %>
+                        <%= link_to "Message #{@user.fullname}", conversations_path(sender_id: current_user.id, receiver_id: @user.id), method: 'post', class:"button is-link" %>
                       </div>
                     </div>
                   </div>

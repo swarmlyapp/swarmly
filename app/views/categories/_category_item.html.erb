@@ -1,0 +1,26 @@
+<% @categories.each do |category| %>
+    <div class="tag animated fadeinright delay-5 expanded">
+    <p><%= link_to category.name, category_path(category) %></p>
+    <span class="tag-note small grey-text"><i class="ion-android-people"></i><%=  pluralize(category.groups.count, "| GRUPO", plural: "| GRUPOS") %></span>
+    <span class="tag-type">
+        <i class="ion-pound"></i>
+    </span>
+    <span class="tag-type second-type">
+		<%= link_to edit_category_path(category) do %>
+			<i class="ion-android-create"></i>  
+		<% end %>           
+    </span>
+    </div> 
+<% end %>
+
+<div style="
+    display: flex;
+    justify-content: flex-end;
+">
+    
+
+<input type="submit" name="commit" value="Crear grupo" class="btn-waves-effect waves-light btn-large file accent-color block animated bouncein delay-5" data-disable-with="Creando grupo..." style="
+    /* margin: 10px; */
+">
+
+</div>

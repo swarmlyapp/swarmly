@@ -1,14 +1,14 @@
-          <div class="tag animated fadeinright delay-5">
-            <p><%= link_to tag.name, tag_path(tag) %></p>
-            <span class="tag-note small grey-text"><i class="ion-document"></i> <span><%= tag.notes.count %> | Nota/Notas</span></span>
-            <span class="tag-type">
-              <i class="ion-pound"></i>
-            </span>
-            <% if logged_in? && current_user.admin? %>
-              <span class="tag-type second-type">
-                <%= link_to tag_path(tag), method: :delete, data:{confirm: "¿Estas seguro que quieres eliminar este tag?"} do %>
-                  <i class="ion-trash-b"></i>
-                <% end %>
-              </span>
-            <% end %>
-          </div>
+  <div class="tag animated fadeinright delay-5 expanded">
+    <p>#<%= link_to tag.name, tag_path(tag) %></p>
+    <span class="tag-note small grey-text"><i class="ion-document"></i> <%=  pluralize(tag.notes.count, "| NOTA", plural: "| NOTAS") %></span>
+    <span class="tag-type">
+      <i class="ion-pound"></i>
+    </span>
+    <% if logged_in? && current_user.admin? %>
+      <span class="tag-type second-type">
+        <%= link_to tag_path(tag), method: :delete do %>
+          <i class="ion-trash-b"></i>  
+        <% end %>           
+      </span>
+    <% end %>
+  </div> 

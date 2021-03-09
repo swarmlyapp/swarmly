@@ -9,16 +9,23 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :remember_me])
     end
     
-   def require_user
-     unless logged_in?
-      flash[:info] = "Debes ingresar para poder hacerlo"
-      redirect_to root_path
+    def require_user
+      unless logged_in?
+        flash[:info] = "Debes ingresar para poder hacerlo"
+        redirect_to root_path
+      end
     end
-  end
-  def after_sign_in_path_for(resource)
-    root_path
-  end
-  def after_sign_out_path_for(resource_or_scope)
-    root_path
-  end
+
+    def create_notification(action, notifiable)
+      (@group.member.uniq - [current_user]).each do |user|
+        Notification.create(recipient: user, actor: current_user, action: action, notifiable: notifiable)
+      end
+    end
+    
+    def after_sign_in_path_for(resource)
+      root_path
+    end
+    def after_sign_out_path_for(resource_or_scope)
+      root_path
+    end
 end

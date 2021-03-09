@@ -2,6 +2,10 @@ class Category < ApplicationRecord
   has_many :group_categories
   mount_uploader :categoriespic, ImageUploader
   has_many :groups, through: :group_categories
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+  has_many :followers, through: :passive_relationships, source: :follower
   validate :categoriespic_size # validate calls a custom validation
   validates :name,
           presence: true,

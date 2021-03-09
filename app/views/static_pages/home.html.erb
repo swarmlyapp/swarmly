@@ -1,6 +1,9 @@
 <% provide(:title, 'Inicio') %>
 <%= render 'layouts/navigation' %>  
 <% if logged_in? %>
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large waves-effect waves-light accent-color modal-trigger" href="#modal1"><i class="ion-android-add"></i></a>
+    </div>
     <%= render 'shared/bottom_nav' %>
     <%= render 'shared/feed' %>
 <% else %>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .bnav{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: black;
+        background: ghostwhite;
+        border-top: 1px solid gray;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+    }
+    .bnav__item{
+        position: relative;
+        padding: 10px;
+        float: left;
+        outline: none;
+        display: block;
+    }
+    .bnav__item--right{
+        float: right;
+
+    }
+    .bnav__item:hover{
+        background: #cccccc;
+        cursor: pointer;
+    }
+    .bnav__link{
+        color: black;
+    }
+</style>
+<body>
+    <nav class="bnav">
+        <div class="bnav__item">
+            Logged in as <strong>Leonel Vega</strong>
+        </div>
+        <div class="bnav__item">
+            <a href="" class="bnav__link">FAQs</a>
+        </div>
+        <div class="bnav__item bnav__item--right">
+            Enviar
+        </div>
+    </nav> 
+</body>
+</html>
+
+<div class="main"> 
+    <div id="tagbar" class="primary-color z-depth-1" style="/* display: none; */">
+
+    <div class="tagbar">
+        <i class="ion-android-arrow-back tag-element"></i>
+        <span style="font-weight: 400;">Nuevo grupo</span>
+    </div>
+    
+</div>
+<nav class="bnav primary-color z-depth-1" style="
+z-index: 2;
+position: fixed;
+bottom: 0;
+left: 0;
+height: 56px;
+width: 100%;
+/* font-family: Roboto; */
+font-size: 13px;
+color: #3c4859;
+/* background: ghostwhite; */
+/* border-top: 1px solid gray; */
+/* box-shadow: 0 0 2px rgba(0, 0, 0, 0.25); */
+/* text-align: center; */
+">
+<div class="container">
+      <div class="row">
+<div class="col s12 m8 offset-m2">
+
+  <div class="bnav__item" style="
+position: relative;
+padding-left: 20px;
+float: left;
+padding: 13px;
+outline: none;
+display: block;
+font-size: 1.5em;
+font-weight: 400;
+">Publicar como
+<strong>Leonel Vega</strong>
+  </div>
+  
+  <div class="bnav__item bnav__item--right" style="
+float: right;
+outline: none;
+display: block;
+position: relative;
+padding-right: 19px;
+font-size: 1.5em;
+font-weight: 400;
+padding-top: 13px;
+">
+      Enviar
+  </div>
+</div></div></div></nav>
+
+       
+      <div class="page animated fadeinup">
+        <div class="container">
+          <div class="row">
+            <div class="col s12 m8 offset-m2">
+              <div class="  card fullscreen form-inputs top-20 p-20">
+                <form class="new_group" id="new_group" enctype="multipart/form-data" action="/groups" accept-charset="UTF-8" method="post" _lpchecked="1"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="0kuxIpgk1PzFIIE54PbGaUoEyVs+aJs5S8x9/sg/3NIP613++UUaCjDRmSfCEEg3qQgge2vq09881Aytw44VNg==">
+                  <div class="input-field animated fadeinright">
+                    <h4>Nombre del grupo</h4>
+<input class="validate" placeholder="Nombre del grupo" type="text" name="group[name]" id="group_name">
+                  </div>
+                  
+                <div class="file-field input-field">
+                  <h4>Foto del grupo</h4><div class="btn file secondary-color">
+                    <span style="
+">Foto</span>
+                    <input accept="image/jpeg,image/gif,image/png" type="file" name="group[groupspic]" id="group_groupspic" placeholder="Seleccionar foto">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Seleccionar foto">
+                  </div>
+                </div>
+
+
+                <h4>Elige un tema:</h4>
+<div class="ro-select-wrapper"><div class="ro-select-text">Science &amp; technology</div><i class="fa fa-caret-down ro-select-caret"></i><input type="hidden" name="group[category_ids]" class="ro-select-input" value=""><ul class="ro-select-list" style="display: none;"><li class="ro-select-item"></li><li class="ro-select-item ro-select-item-active">bbb</li><li class="ro-select-item">bbbb</li></ul></div>
+
+
+                
+<br><br>
+                
+</form>                    </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <style type="text/css">
+      .ro-select-wrapper {
+        display: inline-block;
+        position: relative;
+        min-width: 150px;
+      }
+      .ro-select-text {
+        border: none;
+        border-bottom: 1px solid #888888;
+        display: block;
+        max-height: 48px;
+        padding: 16px 24px 8px 0;
+        cursor: pointer;
+      }
+      .ro-select-text.ro-select-text-empty {
+        color: #cccccc;
+      }
+      .ro-select-caret {
+        position: absolute;
+        right: 8px;
+        top: 20px;
+        color: #888888;
+      }
+      .ro-select-list {
+        user-select: none;
+        position: absolute;
+        transition: 0.25s ease;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 8px 0;
+        background-color: white;
+        box-shadow: 0 3px 10px #adadad;
+      }
+      .ro-select-list > .ro-select-item {
+        padding: 0 16px;
+        line-height: 48px;
+        cursor: pointer;
+      }
+      .ro-select-list > .ro-select-item:hover {
+        background-color: #eaeaea;
+      }
+      .ro-select-list > .ro-select-item.ro-select-item-active {
+        background: #eaeaea;
+      }
+      </style>
+      <script> 
+        $(document).ready(function() {
+          $('.ro-select').filter(function(){
+            var $this = $(this),
+                $sel = $('<ul>',{'class': 'ro-select-list'}),
+                $wr = $('<div>', {'class': 'ro-select-wrapper'}),
+                $inp = $('<input>', {
+                  type:'hidden', 
+                  name: $this.attr('name'),
+                  'class': 'ro-select-input'
+                }),
+                $text = $('<div>', {
+                  'class':'ro-select-text ro-select-text-empty',
+                  text: $this.attr('placeholder')
+                });
+                $opts = $this.children('option');
+            
+            $text.click(function(){
+              $sel.show();
+            });
+            
+            $opts.filter(function(){
+              var $opt = $(this);
+              $sel.append($('<li>',{text:$opt.text(), 'class': 'ro-select-item'})).data('value',$opt.attr('value'));
+            });
+            $sel.on('click','li',function(){
+              $text.text($(this).text()).removeClass('ro-select-text-empty');
+              $(this).parent().hide().children('li').removeClass('ro-select-item-active');
+              $(this).addClass('ro-select-item-active');
+              $inp.val($this.data('value'));
+            });
+            $wr.append($text);
+            $wr.append($('<i>', {'class':'fa fa-caret-down ro-select-caret'}));
+            $this.after($wr.append($inp,$sel));
+            $this.remove();
+          });          
+        });
+        </script> 
+
+</div>

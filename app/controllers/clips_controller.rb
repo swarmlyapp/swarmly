@@ -21,6 +21,7 @@ class ClipsController < ApplicationController
           @clip.attachments.create(attachment: attachment)
         end
       end
+      create_notification("clip", @clip)
       flash[:info] = "Clip creado exitosamente"
       redirect_to clip_path(@clip)
     else      

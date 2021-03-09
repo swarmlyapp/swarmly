@@ -1,0 +1,23 @@
+<%= render 'shared/alternate_tool', name: "Crear grupo", path: groups_path %>
+<div class="row">
+  <div class="col-md-8">
+    <ul class="list-group">
+      <% @conversations.each do |conversation| %>
+        <li class="list-group-item" data-conversation-id="<%= conversation.id %>">
+          <%= link_to conversation.recipient(current_user).username, conversation_messages_path(conversation) %>
+          <% if !conversation.unread_message_count(current_user).zero? %>
+            <span class="badge"><%= conversation.unread_message_count(current_user) %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <input id="search" placeholder="Search" class="form-control">
+    </div>
+    <ul id="users" class="list-group">
+
+    </ul>
+  </div>
+</div>

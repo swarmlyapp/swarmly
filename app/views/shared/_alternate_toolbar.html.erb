@@ -1,0 +1,216 @@
+<div class="main"> 
+          <nav class="bnav primary-color z-depth-1" style="z-index: 2;position: fixed;/* bottom: 0; */left: 0;height: 56px;width: 100%;/* font-family: Roboto; */font-size: 13px;color: #011638;/* background: ghostwhite; *//* border-top: 1px solid gray; *//* box-shadow: 0 0 2px rgba(0, 0, 0, 0.25); *//* text-align: center; */">
+<div class="container">
+      <div class="row">
+<div class="col s12 m8 offset-m2">
+
+  <div class="bnav__item" style="position: relative;/* padding-left: 20px; */float: left;padding: 8px;outline: none;display: block;font-size: 1.5em;/* font-weight: 400; */">
+    <i class="ion-android-close tag-element"></i>
+    Crear grupo
+  </div>
+  
+  <div class="bnav__item bnav__item--right" style="float: right;outline: none;display: block;position: relative;padding: 15px;font-size: 16px;/* font-weight: 400; */color: #3578E5;">
+      CREAR
+  </div>
+</div></div></div></nav>
+    
+               
+
+            <div class="page animated fadeinup">
+              <div class="container">
+                <div class="row">
+                  <div class="col s12 m8 offset-m2">
+                    <div class=" fullscreen form-inputs top-20 p-20">
+                      <div class="form-inputs">
+          <h4>Información del grupo</h4>
+          <div class="input-field">
+            <input id="email" type="email" class="validate">
+            <label for="email" data-error="wrong" data-success="right" class="">Nombre del grupo</label>
+          </div>
+<div class="input-field">
+            <input id="email" type="email" class="validate">
+            <label for="email" data-error="wrong" data-success="right" class="">Descripción del grupo</label>
+          </div>
+          
+
+          
+          <div>
+            <h4 class="shipping-address">Foto del grupo</h4>
+<div class="input-field">
+                            <input id="real-life" accept="image/jpeg,image/gif,image/png" type="file" name="group[categoriespic]" style="display: none;">
+                            <button type="button" id="custom-button">Elegir una foto</button>
+                            <span id="custom-text">No hay foto todavía</span>
+                        </div>
+            
+          <h4>Categoría del grupo:</h4><select class="browser-default">
+            <option value="" disabled="" selected="">--</option>
+            <option value="1">Español</option>
+            <option value="2">Science &amp; technology</option>
+            <option value="3">Matemáticas</option>
+            <option value="4">Filosofía</option>
+            <option value="5">Arte</option>
+          </select></div>
+<div class="bnav" style="display: flex;/* z-index: 2; *//* position: relative; *//* bottom: 0; */left: 0;/* height: 40px; */width: 100%;/* font-family: Roboto; */font-size: 13px;color: #3c4859;/* background: ghostwhite; *//* border-top: 1px solid gray; *//* box-shadow: 0 0 2px rgba(0, 0, 0, 0.25); *//* text-align: center; */justify-content: space-between;">
+
+
+  <div class="bnav__item" style="position: relative;/* padding-left: 20px; */float: left;/* padding: 13px; */outline: none;display: block;font-size: 15px;font-weight: 400;">Sobre como moderar <br> el grupo
+</div>
+  
+  <div class="bnav__item bnav__item--right" style="float: right;outline: none;display: block;position: relative;/* padding-right: 19px; */font-size: 15px;font-weight: 400;/* padding-top: 13px; */">
+    <a class="waves-effect waves-accent file btn-flat">MÁS INFORMACIÓN</a>
+  </div>
+</div>
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+        </div>                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <style type="text/css">
+            .ro-select-wrapper {
+              display: inline-block;
+              position: relative;
+              min-width: 150px;
+            }
+            .ro-select-text {
+              border: none;
+              border-bottom: 1px solid #888888;
+              display: block;
+              max-height: 48px;
+              padding: 16px 24px 8px 0;
+              cursor: pointer;
+            }
+            .ro-select-text.ro-select-text-empty {
+              color: #cccccc;
+            }
+            .ro-select-caret {
+              position: absolute;
+              right: 8px;
+              top: 20px;
+              color: #888888;
+            }
+            .ro-select-list {
+              user-select: none;
+              position: absolute;
+              transition: 0.25s ease;
+              top: 0;
+              left: 0;
+              width: 100%;
+              display: none;
+              list-style: none;
+              margin: 0;
+              padding: 8px 0;
+              background-color: white;
+              box-shadow: 0 3px 10px #adadad;
+            }
+            .ro-select-list > .ro-select-item {
+              padding: 0 16px;
+              line-height: 48px;
+              cursor: pointer;
+            }
+            .ro-select-list > .ro-select-item:hover {
+              background-color: #eaeaea;
+            }
+            .ro-select-list > .ro-select-item.ro-select-item-active {
+              background: #eaeaea;
+            }
+            #real-file{
+              display: none;
+            }
+            #custom-button {
+              padding: 10px;
+              color: white;
+              background-color: #0facf3;
+              border: none;
+              border-radius: 2px;
+              cursor: pointer;
+            }
+
+            #custom-button:hover {
+              background-color: #00b28f;
+            }
+
+            #custom-text {
+              margin-left: 10px;
+              font-family: sans-serif;
+              color: #aaa;
+            }
+            </style>
+            <script> 
+              $(document).ready(function() {
+                $('.ro-select').filter(function(){
+                  var $this = $(this),
+                      $sel = $('<ul>',{'class': 'ro-select-list'}),
+                      $wr = $('<div>', {'class': 'ro-select-wrapper'}),
+                      $inp = $('<input>', {
+                        type:'hidden', 
+                        name: $this.attr('name'),
+                        'class': 'ro-select-input'
+                      }),
+                      $text = $('<div>', {
+                        'class':'ro-select-text ro-select-text-empty',
+                        text: $this.attr('placeholder')
+                      });
+                      $opts = $this.children('option');
+                  
+                  $text.click(function(){
+                    $sel.show();
+                  });
+                  
+                  $opts.filter(function(){
+                    var $opt = $(this);
+                    $sel.append($('<li>',{text:$opt.text(), 'class': 'ro-select-item'})).data('value',$opt.attr('value'));
+                  });
+                  $sel.on('click','li',function(){
+                    $text.text($(this).text()).removeClass('ro-select-text-empty');
+                    $(this).parent().hide().children('li').removeClass('ro-select-item-active');
+                    $(this).addClass('ro-select-item-active');
+                    $inp.val($this.data('value'));
+                  });
+                  $wr.append($text);
+                  $wr.append($('<i>', {'class':'ion-android-arrow-dropdown'}));
+                  $this.after($wr.append($inp,$sel));
+                  $this.remove();
+                });  
+                const realFileBtn = document.getElementById("real-file");
+                const customBtn = document.getElementById("custom-button");
+                const customTxt = document.getElementById("custom-text");
+
+                customBtn.addEventListener("click", function() {
+                  realFileBtn.click();
+                });
+
+                realFileBtn.addEventListener("change", function() {
+                  if (realFileBtn.value) {
+                    customTxt.innerHTML = realFileBtn.value.match(
+                      /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                    )[1];
+                  } else {
+                    customTxt.innerHTML = "No file chosen, yet.";
+                  }
+                });        
+              });
+              </script> 
+ 
+    <nav class="bnav primary-color z-depth-1" style="z-index: 2;position: fixed;bottom: 0;left: 0;height: 56px;width: 100%;/* font-family: Roboto; */font-size: 13px;color: #011638;/* background: ghostwhite; *//* border-top: 1px solid gray; *//* box-shadow: 0 0 2px rgba(0, 0, 0, 0.25); *//* text-align: center; */">
+<div class="container">
+      <div class="row">
+<div class="col s12 m8 offset-m2">
+
+  
+  
+  <div class="bnav__item bnav__item--right" style="float: right;outline: none;display: block;position: relative;padding: 10px;font-size: 16px;/* font-weight: 400; */color: #3578E5;text-transform: lowercase;">
+      <a class="waves-effect waves-light btn file">Crear grupo</a>
+
+  </div>
+</div></div></div></nav></div>

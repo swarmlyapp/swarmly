@@ -12,7 +12,7 @@ module ApplicationHelper
           page_title + " | " + base_title
         end
     end
-    
+
     def markdown(text)
       text = auto_html(text) do
         html_escape

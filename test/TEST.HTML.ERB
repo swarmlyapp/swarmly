@@ -1,0 +1,90 @@
+<%= render 'shared/folder_toolbar' %>
+
+<div class="page animated fadeinup">
+        <div class="hero-material animated fadeindown">
+          <div class="bg-9">
+            <div class="floating-button animated bouncein delay-3">
+            <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
+              <i class="ion-social-twitter"></i>
+            </span>
+          </div>
+            <div class="banner-title p-20">Jane Lee</div>
+          </div>
+        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="p-20 animated fadeinup delay-1">
+          <h2><%= link_to @zone.name %></h2>
+          <span class="small">Drawing / Illustration / Painting</span>
+          <p class="regular">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+        </div>
+
+        <div class="media-share-author media-author animated fadeinright delay-2">
+          <% if current_user.userspic.present? %>
+            <%= link_to image_tag(current_user.userspic.url(:picture_display), class: 'avatar'), user_path(current_user) %>
+          <% elsif current_user.remote_avatar.present? %>
+            <%= link_to image_tag(current_user.remote_avatar, class: 'avatar'), user_path(current_user) %>
+          <% else %>
+            <%= link_to image_tag("noprofile.png", class: 'avatar'), user_path(current_user) %>
+          <% end %>
+          <span><%= link_to @zone.user.username.capitalize, user_path(@zone.user.id) %></span>
+          <div class="media-social-share">
+            <% if logged_in? && (@zone.user==current_user || current_user.admin?) %>
+              <%= link_to edit_zone_path(@zone) do %>
+                <i class="ion-android-create"></i>
+              <% end %>
+              <%= link_to zone_path(@zone), method: :delete, data:{confirm: "¿Seguro que quieres eliminar esta Zona Swarmly?"} do %>
+                <i class="ion-android-delete"></i>
+              <% end %>
+            <% end %>
+            <i class=""></i>
+          </div>
+        </div>
+        <div class="card m-20 animated fadeinup delay-5">
+          <div class="card-author">
+            <div class="media-top-object middle p-10 m-0">	
+              <i class="ion-ios-location media-left"></i>  														
+              <span>Ubicación</span> 
+            </div>
+          </div>
+            <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{@zone.latitude},#{@zone.longitude}&zoom=14&size=640x400&markers=color:black%7C#{@zone.latitude},#{@zone.longitude}&key=#{ENV['GOOGLE_API_KEY']}" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'shared/folder_nav' %>
+
+<nav class="bottom-nav">
+      <a class="bottom-nav__action bottom-nav__action--active" href="/">
+        <svg class="bottom-nav__icon m-i" width="24" height="18" viewBox="0 0 24 18"><path class="ac" d="M10,21V14.647h4V21h5V12.529h3L12,3,2,12.529H5V21Z" transform="translate(0 -3)"></path></svg>
+        <span class="bottom-nav__label">Inicio</span>
+      </a>
+
+      <a class="bottom-nav__action " href="/categories">
+        <svg class="bottom-nav__icon m-c" width="24" height="16" viewBox="0 0 24 16"><path class="in" d="M4,8H8V4H4Zm6,12h4V16H10ZM4,20H8V16H4Zm0-6H8V10H4Zm6,0h4V10H10ZM16,4V8h4V4ZM10,8h4V4H10Zm6,6h4V10H16Zm0,6h4V16H16Z" transform="translate(0 -4)"></path></svg>
+        <span class="bottom-nav__label">Categorías</span>
+      </a>
+
+      <a class="bottom-nav__action " href="/groups">
+        <svg width="24" height="16" viewBox="0 0 24 16" class="bottom-nav__icon" style="
+    margin-bottom: 8px;
+    margin-top: 4px;
+    /* display: none; */
+"><g transform="translate(0 -3)"><path class="in" d="M18.941,4H3.882A1.865,1.865,0,0,0,2.009,5.853L2,16.971a1.873,1.873,0,0,0,1.882,1.853H18.941a1.873,1.873,0,0,0,1.882-1.853V5.853A1.873,1.873,0,0,0,18.941,4Zm0,3.706-7.529,4.632L3.882,7.706V5.853l7.529,4.632,7.529-4.632Z" transform="translate(0 0.176)"></path><ellipse class="c" cx="4.118" cy="4.118" rx="4.118" ry="4.118" transform="translate(13.765 3)" style="
+    fill: #0facf3;
+    display: none;
+"></ellipse></g></svg>
+
+<svg width="24" height="16" viewBox="0 0 24 16" class="bottom-nav__icon" style="
+    margin-bottom: 8px;
+    margin-top: 4px;
+    display: none;
+"><g transform="translate(0 -3)"><path class="in" d="M18.941,4H3.882A1.865,1.865,0,0,0,2.009,5.853L2,16.971a1.873,1.873,0,0,0,1.882,1.853H18.941a1.873,1.873,0,0,0,1.882-1.853V5.853A1.873,1.873,0,0,0,18.941,4Zm0,3.706-7.529,4.632L3.882,7.706V5.853l7.529,4.632,7.529-4.632Z" transform="translate(0 0.176)"></path><ellipse class="c" cx="5.118" cy="5.118" rx="5.118" ry="5.118" transform="translate(11.765 3)" style="
+    fill: #0facf3;
+"></ellipse></g></svg>
+        <span class="bottom-nav__label">Recibidos</span>
+      </a>
+    </nav>

@@ -32,8 +32,8 @@ class ZonesController < ApplicationController
   
     def create
       @zone = Zone.new(zone_params)
-
       if @zone.save
+        create_notification("zone", @zone)
         flash[:info] = "Zona Swarmly creada"
         redirect_to zone_path(@zone)
       else      

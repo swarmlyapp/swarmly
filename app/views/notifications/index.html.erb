@@ -30,9 +30,7 @@
                 <li class="collection-item white z-depth-1">
                   <div class="notify-header">
                     <div class="unknow-avatar secondary-color">
-                      <%= link_to notifications.clean_notifications_path, method: :delete do %>
-                        <i class="ion-android-notifications-off"></i>  
-                      <% end %>
+
                     </div>
                     <div class="notify-author">
                       <span>Notificaciones</span>
@@ -41,8 +39,8 @@
                     </div>
                   </div>
                 </li>
-                <% @notification_groups.each do |group, notifications| %>
-                    <%= render notifications %>
+                <% @notifications.each do |notification| %>
+                  <%= render partial: "notifications/#{notification.notifiable_type.underscore.pluralize}/#{notification.action}", locals: {notification: notification}, formats: [:html] %>
                 <% end %>
               </ul>
             </div>

@@ -1,0 +1,6 @@
+<%= link_to group_path(notification.notifiable), class: "dropdown-item #{"unread" if !notification.read_at?}" do %>
+  <%= link_to notification.actor.username, user_path(notification.actor) %>
+  <%= notification.action %>
+  <%= link_to notification.notifiable.caption, clip_path(notification.notifiable) %>
+  a <%= notification.notifiable_type.underscore.humanize.downcase %>
+<% end %>

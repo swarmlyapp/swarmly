@@ -1,0 +1,6 @@
+<% @tags.each do |tag| %>
+    <div class="chip">
+        <img src="https://res.cloudinary.com/swarmly/image/upload/v1548205122/noimage.png" alt="swawrmly-hashtags">
+        <%= link_to tag.name, tag_path(tag) %>
+    </div>
+<% end %>

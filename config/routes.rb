@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  mount Notifications::Engine => "/notifications"
   devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
   root 'static_pages#home'
-  get    'maps'   => 'static_pages#maps'
+  get    'explore'   => 'static_pages#explore'
   get    'login'   => 'static_pages#login'
   get    'lock'   => 'static_pages#lock'
-  get "pages/home", to: "pages#home"
   get "conducta", to: 'static_pages#conduct'
   get '.well-known/assetlinks.json' => 'static_pages#assetlinks', :defaults => { :format => 'json' }
   delete 'delete_all', to: 'notes#delete_all'
@@ -38,6 +36,11 @@ Rails.application.routes.draw do
   resources :saves, only: [:index, :create, :destroy]
   resources :conversations do
     resources :messages
+  end
+  resources :notifications do
+    collection do
+      post :mark_as_read
+    end
   end
   resources :users, except: [:new] do
     member do

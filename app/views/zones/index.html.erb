@@ -1,27 +1,9 @@
 <% provide(:title, 'Encuentra una Zona Swarmly') %>
 <%= render 'shared/folder_toolbar' %>
 <% if @zones.empty? %>
-  <div class="page fullscreen valign-wrapper accent-color animated fadeinup">
-    <div class="container">
-      <div class="row">
-        <div class="col s12 m8 offset-m2">
-          <div class="valign">
-            <div class="center-align">
-              <h1 class="title big">¯\_(ツ)_/¯</h1>
-            </div>
-            <div class="center-align p-20">
-              <div class="card-panel animated fadein delay-2">
-                <h2>Crea una Zona Swarmly</h2>
-                <span>Sé el primero en crear una Zona Swarmly dondé podrás reunirte para aprender.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> 
+  <%= render 'shared/not_found', name: "Zona Swarmly" %>
 <% else %>
-  <div class="page animated fadeinup delay-2">
+  <div class="page-folder animated fadeinup delay-2">
     <div class="card m-20">
       <div class="media-top-object middle m-0 p-10">
           <i class="ion-ios-location media-left"></i>

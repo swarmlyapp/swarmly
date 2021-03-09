@@ -1,29 +1,16 @@
     <% provide(:title, 'Todas las categorías') %>
     <%= render 'layouts/navigation' %>
     <%= render 'shared/bottom_nav' %>
-    <div class="animated fadeinup">
-            <div class="container">
-              <div class="row">
-                <div class="col s12 m8 offset-m2">
-                  <% @categories.each do |category| %>
-                    <div class="category-banner full animated fadeinup delay-3">
-                        <%= image_tag category.categoriespic.url if category.categoriespic? %>
-                        <div class="opacity-overlay valign-wrapper">
-                          <div class="valign center width-100">
-                            <h3 class="white-text"><%= link_to category.name.capitalize, category_path(category) %></h3>
-                          </div>
-                          <% if logged_in? && current_user.admin?  %>
-                          <div class="category-actions">
-                          <%= link_to edit_category_path(category) do %>
-                              <i class="ion-android-create group-action"></i>  
-                          <% end %>
-                          </div>
-                          <% end %>
-                        </div>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
+    <div class="page animated fadeinup">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m8 offset-m2">
+            <div class="card fullscreen">
+              <p class="explore-card-title">Categorías</p>
+              <%=render(partial: "categories/category_item", object: @categories) %>
             </div>
+          </div>
+        </div>
+      </div>
       <div class="clearfix"></div>
     </div>

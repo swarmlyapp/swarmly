@@ -57,6 +57,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     if !current_user.is_member_of?(@group)
       current_user.join!(@group)
+      create_notification("joined", @group)
       flash[:info] = "Te uniste al grupo con éxito"
     else
       flash[:info] = "¡Ya eres miembro de este grupo!"
@@ -77,7 +78,7 @@ class GroupsController < ApplicationController
   
   private 
    def group_params
-     params.require(:group).permit(:name, :groupspic, category_ids: [])
+     params.require(:group).permit(:name, :groupspic, :category_ids)
    end
    
    def set_group

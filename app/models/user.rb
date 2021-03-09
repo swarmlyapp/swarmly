@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :active_saves, class_name: "Save", foreign_key: "saver_id", dependent: :destroy
   has_many :saving, through: :active_saves, source: :saved_note
-  has_many :notifications, dependent: :destroy
+  has_many :notifications, foreign_key: :recipient_id
   has_many :clips, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :zones, dependent: :destroy
@@ -13,11 +13,7 @@ class User < ApplicationRecord
   has_many :active_relationships,  class_name:  "Relationship",
                                    foreign_key: "follower_id",
                                    dependent:   :destroy
-  has_many :passive_relationships, class_name:  "Relationship",
-                                   foreign_key: "followed_id",
-                                   dependent:   :destroy
   has_many :following, through: :active_relationships, source: :followed
-  has_many :followers, through: :passive_relationships, source: :follower
   has_many :likes
   has_many :group_relationships
   has_many :participated_groups, :through => :group_relationships, :source => :group
@@ -44,22 +40,18 @@ class User < ApplicationRecord
   end
 
   # Follows a user.
-  def follow(other_user)
-    active_relationships.create(followed_id: other_user.id)
+  def follow(other_category)
+    active_relationships.create(followed_id: other_category.id)
   end
 
   # Unfollows a user.
-  def unfollow(other_user)
-    active_relationships.find_by(followed_id: other_user.id).destroy
-  end
-  
-  def follow_notification(user)
-    Notification.notify_follow(user.id, self.id)
+  def unfollow(other_category)
+    active_relationships.find_by(followed_id: other_category.id).destroy
   end
 
   # Returns true if the current user is following the other user.
-  def following?(other_user)
-    following.include?(other_user)
+  def following?(other_category)
+    following.include?(other_category)
   end
 
   def saved(note)
@@ -77,10 +69,7 @@ class User < ApplicationRecord
   end
   
   def feed
-    following_ids_subselect = "SELECT followed_id FROM relationships
-                               WHERE  follower_id = :user_id"
-    Group.where("user_id IN (#{following_ids_subselect})
-                     OR user_id = :user_id", user_id: id)
+    Group.where(id: active_relationships.select(:followed_id))
   end
 
   def self.create_from_provider_data(provider_data)

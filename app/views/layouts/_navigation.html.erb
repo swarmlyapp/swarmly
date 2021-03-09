@@ -1,24 +1,14 @@
     <div id="toolbar" class="primary-color z-depth-1">
       <div class="logo-container">
         <a href="/">
-          <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1560995138/logo_s.svg" alt="swarmly">
+          <img class="logo" src="https://res.cloudinary.com/swarmly/image/upload/v1560995138/logo.svg" alt="swarmly">
         </a>        
       </div>
       <% if logged_in? %>
         <div class="toolbar-item">
-          <a href="/groups/new">
-            <i class="ion-compose"></i>
+          <a href="/explore">
+            <i class="ion-android-search"></i>
           </a>            
-
-          <% if Notification.unread_count(current_user) != 0 %>
-              <%= link_to notifications_path do %>
-                  <i class="ion-android-notifications  red-text text-lighten-1"></i>
-              <% end %>
-          <% else %>
-              <%= link_to notifications_path do %>
-                  <i class="ion-android-notifications"></i>
-              <% end %>
-          <% end %>
           
           <% if current_user.userspic.present? %>
             <a href="/users/<%= "#{current_user.id}" %>">

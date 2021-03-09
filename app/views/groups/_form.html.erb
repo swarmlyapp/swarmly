@@ -1,4 +1,4 @@
-            <%= render "shared/error_messages", object: @group %>
+             <%= render "shared/error_messages", object: @group %>
             <div class="page animated fadeinup">
               <div class="container">
                 <div class="row">
@@ -9,28 +9,106 @@
                           <%= f.text_field :name, class: "validate", placeholder: "Nombre del grupo" %>
                         </div>
                         
-                      <div class="file-field input-field">
-                        <div class="btn file secondary-color">
-                          <span>Foto</span>
-                          <%= f.file_field :groupspic, accept: 'image/jpeg,image/gif,image/png' %>
-                        </div>
-                        <div class="file-path-wrapper">
-                          <input class="file-path validate" type="text">
-                        </div>
-                      </div>
+                            <%= f.file_field :categoriespic, id: "real-file", onchange: "readURL(this);", accept: 'image/jpeg,image/gif,image/png' %>
+                            <button type="button" id="custom-button">Elegir una foto</button>
+                            <span id="custom-text">No hay foto todavía</span>
+                      <img id="blah" src="http://placehold.it/180" />
 
-                      <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
-                        <%= cb.check_box(class: "filled-in") %> 
-                        <%= cb.label %> 
-                        <br>
-                      <% end %>
+                      <%= f.select(:category_ids, Category.all.order('categories.name ASC').map{|i| [ i.name, i.id ] }, {include_blank: true}, {class: "ro-select"})%>
+
+
                       <br>
                       <%= f.submit(@group.new_record? ? "Crear grupo" : "Editar grupo",
-                                                    class: "btn-waves-effect waves-light btn-large accent-color block animated bouncein delay-6", data: { disable_with: "Creando grupo..." }) %>
+                                                    class: "waves-effect waves-teal btn-flat animated bouncein delay-6", data: { disable_with: "Creando grupo..." }) %>
                       <% end %>
                     </div>
                   </div>
                 </div>
               </div>
             </div> 
+            <style type= "text/css">
+            .ro-select-wrapper {
+              display: inline-block;
+              position: relative;
+              min-width: 150px;
+            }
+            .ro-select-text {
+              border: none;
+              border-bottom: 1px solid #888888;
+              display: block;
+              max-height: 48px;
+              padding: 16px 24px 8px 0;
+              cursor: pointer;
+            }
+            .ro-select-text.ro-select-text-empty {
+              color: #cccccc;
+            }
+            .ro-select-caret {
+              position: absolute;
+              right: 8px;
+              top: 20px;
+              color: #888888;
+            }
+            .ro-select-list {
+              user-select: none;
+              position: absolute;
+              transition: 0.25s ease;
+              top: 0;
+              left: 0;
+              width: 100%;
+              display: none;
+              list-style: none;
+              margin: 0;
+              padding: 8px 0;
+              background-color: white;
+              box-shadow: 0 3px 10px #adadad;
+            }
+            .ro-select-list > .ro-select-item {
+              padding: 0 16px;
+              line-height: 48px;
+              cursor: pointer;
+            }
+            .ro-select-list > .ro-select-item:hover {
+              background-color: #eaeaea;
+            }
+            .ro-select-list > .ro-select-item.ro-select-item-active {
+              background: #eaeaea;
+            }
+            #real-file{
+              display: none;
+            }
+            #custom-button {
+              padding: 10px;
+              color: white;
+              background-color: #0facf3;
+              border: none;
+              border-radius: 2px;
+              cursor: pointer;
+            }
 
+            #custom-button:hover {
+              background-color: #00b28f;
+            }
+
+            #custom-text {
+              margin-left: 10px;
+              font-family: sans-serif;
+              color: #aaa;
+            }
+            </style>
+            <script> 
+              $(document).ready(function() {
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#blah')
+                                .attr('src', e.target.result);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }       
+              });
+              </script> 

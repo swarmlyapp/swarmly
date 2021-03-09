@@ -1,27 +1,9 @@
 <% provide(:title, 'Todas las notas') %>
 <%= render 'shared/folder_toolbar' %>
 <% if @notes.empty? %>
-          <div class="page fullscreen valign-wrapper accent-color animated fadeinup">
-            <div class="container">
-              <div class="row">
-                <div class="col s12 m8 offset-m2">
-                  <div class="valign">
-                    <div class="center-align">
-                      <h1 class="title big">¯\_(ツ)_/¯</h1>
-                    </div>
-                    <div class="center-align p-20">
-                      <div class="card-panel animated fadein delay-2">
-                        <h2>No hay notas todavía!</h2>
-                        <span>Empieza a compartir lo que sabes.</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> 
+      <%= render 'shared/not_found', name: "notas" %>
     <% else %>
-          <div class="page animated fadeinup">
+          <div class="page-folder animated fadeinup">
             <div class="container">
               <div class="row">
                 <div class="col s12 m8 offset-m2">

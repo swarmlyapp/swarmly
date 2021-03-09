@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
     if @comment.save
       ActionCable.server.broadcast "comments", render(partial: "comments/comment", object: @comment)
+      create_notification("comment", @comment)
     else
       flash[:info] = "Algo salio mal, intentalo de nuevo"
       #redirect_to :back

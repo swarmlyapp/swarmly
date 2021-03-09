@@ -1,69 +1,54 @@
 <% provide(:title, "Zona Swarmly #{@zone.name}") %>
 <%= render 'shared/folder_toolbar' %>
-<div class="page animated fadeinup">
+<div class="page-folder animated fadeinup">
   <div class="container">
     <div class="row">
       <div class="col s12 m8 offset-m2">
-        <div class="card m-20 animated fadeinup delay-5">
-          <div class="card-author">
-            <div class="media-top-object middle p-10 m-0">
-              <% if @zone.user.userspic.present? %>
-                  <%= link_to image_tag(@zone.user.userspic.url(:picture_display), class: 'media-left avatar small'), user_path(@zone.user.id) %>
-              <% elsif @zone.user.remote_avatar.present? %>
-                  <%= link_to image_tag(@zone.user.remote_avatar, class: 'media-left avatar small'), user_path(@zone.user_id) %>
-              <% else %>
-                  <%= link_to image_tag("noprofile.png", class: 'media-left avatar small'), user_path(@zone.user.id) %>
-              <% end %>																
-              <div class="media-body">
-                <span><%= link_to @zone.user.username.capitalize, user_path(@zone.user.id) %>
-                <% if @zone.user.admin? %>
-                    <i class="ion-checkmark-circled"></i>  
-                <% end %>
-                </span>       
-              </div>
-              <% if logged_in? && (@zone.user==current_user || current_user.admin?) %>
-                <div class="group-actions">
-                    <%= link_to edit_zone_path(@zone) do %>
-                            <i class="ion-android-create group-action"></i>  
-                    <% end %>
-                    <%= link_to zone_path(@zone), method: :delete, data:{confirm: "¿Seguro que quieres eliminar esta Zona Swarmly?"} do %>
-                        <i class="ion-android-delete group-action"></i>  
-                    <% end %>
-                </div>
-              <% end %>
+        <div class="z-depth-1 hero-material animated fadeindown">
+          <div class="bg-9 parallax">
+            <div class="floating-button animated bouncein delay-3">
+              <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
+                <i class="ion-android-share-alt"></i>
+              </span>
             </div>
           </div>
-            <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{@zone.latitude},#{@zone.longitude}&zoom=14&size=640x400&markers=color:black%7C#{@zone.latitude},#{@zone.longitude}&key=#{ENV['GOOGLE_API_KEY']}" %>
         </div>
-        <ul class="collapsible m-20 regular">
-          <li>
-            <div class="collapsible-header"><i class="ion-android-list accent-text"></i>Descripción</div>
-            <div class="collapsible-body"><span><%= @zone.name %></span></div>
-          </li>
-          <li>
-            <div class="collapsible-header"><i class="ion-android-calendar accent-text"></i>Fecha y hora de encuentro</div>
-            <div class="collapsible-body"><span><%= @zone.day %>, <%= @zone.hour %></span></div>
-          </li>
-          <li>
-            <div class="collapsible-header"><i class="ion-android-pin accent-text"></i>Ubicación</div>
-            <div class="collapsible-body"><span><%= @zone.address %></span></div>
-          </li>
-          <% if @zone.price? %>
-          <li>
-            <div class="collapsible-header"><i class="ion-pricetag accent-text"></i>Monto a cobrar por hora</div>
-            <div class="collapsible-body"><span><%= @zone.price %> dólares</span></div>
-          </li>	
-          <% end %>											
-        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="p-20 animated fadeinup delay-1">
+          <h2 style="margin-top:1rem;font-weight:500;">Taller Nodejs y javascript con cc</h2>
+          <span class="small secondary-text">13 de noviembre/7pm</span>
+          <p class="regular" style="margin-bottom: 2rem;">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+        </div>
+        <div class="media-share-author media-author animated fadeinright delay-2">
+          <img src="https://res-2.cloudinary.com/swarmly/image/upload/c_fill,g_face:auto,h_400,w_400/v1552504783/g92tjlwqzpasywh6aa8m.jpg" alt="" class="avatar">
+          <span>Leonel Vega</span>
+          <div class="media-social-share">
+            <i class="ion-android-delete"></i>
+            <i class="ion-android-create"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comments grey lighten-4">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m8 offset-m2">
+          <div class="media-top-object middle">
+              <i class="ion-ios-location media-left"></i>
+              <div class="media-body">
+                  <span>San José, Ulacit</span>
+              </div>
+          </div>
+					<%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{@zone.latitude},#{@zone.longitude}&zoom=14&size=640x400&markers=color:black%7C#{@zone.latitude},#{@zone.longitude}&key=#{ENV['GOOGLE_API_KEY']}" %>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 <%= render 'shared/folder_nav' %>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-      $('.collapsible').collapsible();
-  });
-</script>

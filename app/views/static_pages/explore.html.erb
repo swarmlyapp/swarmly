@@ -1,0 +1,26 @@
+<% provide(:title, 'Explorar nuevos grupos') %>
+<%= render 'layouts/navigation' %>
+<%= render 'shared/bottom_nav' %>
+<div class="page animated fadeinup">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">             
+        <div class="card fullscreen">
+          <p class="explore-card-title">Tags</p>
+          <div class="p-10">
+            <%= render(partial: "tags/tag_chip", object: @tags) %>
+          </div>    
+          <p class="explore-show"><%= link_to "Mostrar más", tags_path %></p>
+        </div>
+        <div class="card fullscreen">
+          <p class="explore-card-title">Categorías</p>
+          <%=render(partial: "categories/category_item", object: @categories) %>
+          <p class="explore-show"><%= link_to "Mostrar más", categories_path %></p>
+        </div> 
+      </div>
+      <div class="col s12 m6 offset-m3">
+        <%= render @groups %>
+      </div>
+    </div>
+  </div>
+</div>

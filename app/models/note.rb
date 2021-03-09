@@ -12,7 +12,7 @@ class Note < ApplicationRecord
 	mount_uploader :notespic, NotespicUploader
   delegate :userspic, to: :user, prefix: true  
 	validates :tag_list, length: {maximum: 230}
-  after_commit :create_notifications, on: :create
+  #after_commit :create_notifications, on: :create
 	default_scope {order('rank DESC')}
 
 	def tag_list=(tags_string)
@@ -57,13 +57,13 @@ class Note < ApplicationRecord
     end
 	end
 	
-	def create_notifications
-    Notification.create do |notification|
-      notification.notify_type = 'note'
-      notification.actor = self.user
-      notification.user = self.group.user
-      notification.target = self
-      notification.second_target = self.group
-    end
-	end
+	# def create_notifications
+    # Notification.create do |notification|
+    #   notification.notify_type = 'note'
+    #   notification.actor = self.user
+    #   notification.user = self.group.user
+    #   notification.target = self
+    #   notification.second_target = self.group
+    # end
+	#end
 end

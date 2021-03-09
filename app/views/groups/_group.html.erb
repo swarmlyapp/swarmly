@@ -51,7 +51,9 @@
                 <% end %>
                 <% if group.categories.any? %>
                 <span class="small">en </span>
-                <span class="small accent-text"><%= render group.categories %></span>
+                <span class="small accent-text">
+                  <%= render group.categories %>
+                </span>
                 <% end %>
               </div>
             </div>

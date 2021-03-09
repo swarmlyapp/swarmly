@@ -8,7 +8,7 @@ class Zone < ApplicationRecord
     validate :zonespic_size # validate calls a custom validation
     validates :name, presence: true, length: { minimum: 5, maximum: 100 }
 	  validates :day , :hour, :address, :group_id, presence: true 
-    after_commit :create_notifications, on: :create
+    #after_commit :create_notifications, on: :create
 
     private
     def zonespic_size

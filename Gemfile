@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.6.5'
 gem 'therubyracer'
 gem 'rails', '~> 5.2.0'
 gem 'pg', '>= 0.18', '< 2.0'
@@ -26,7 +26,6 @@ gem 'serviceworker-rails', '~> 0.5'
 gem 'trumbowyg_rails'
 gem 'geocoder'
 gem 'gmaps4rails'
-gem 'notifications', '~> 0.6.0'
 gem 'friendly_id', '~> 5.2.4'
 gem 'auto_html', '~>1.6.4'
 gem 'jquery-atwho-rails'

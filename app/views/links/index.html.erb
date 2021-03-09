@@ -1,0 +1,20 @@
+<% provide(:title, 'Todos los clips') %>
+<%= render 'shared/folder_toolbar' %>
+<% if @links.empty? %>
+      <%= render 'shared/not_found', name: "links" %>
+    <% else %>
+    <div class="page-folder"> 
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m8 offset-m2">
+            <div class="z-depth-1 m-20 white p-20 animated fadeinright delay-2">
+              <p class="single-links-title">Text</p>
+              <span class="regular secondary-text">text - text</span> 
+              <span class="single-links-underline secondary-text">TEXT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+<%= render 'shared/folder_nav' %>
